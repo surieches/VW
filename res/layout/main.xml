@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#A2C6FB"
+>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+                android:layout_height="fill_parent" 
+                android:layout_width="fill_parent">
+        <TableLayout
+            android:id="@+id/widget42"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <TableRow
+                android:id="@+id/widget52"
+                android:layout_width="467dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVFar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Farmacia"
+                    android:textColor="#ff6633ff" />
+                <AutoCompleteTextView
+                    android:id="@+id/ACFar"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"	
+                    android:textSize="18sp" />
+            </TableRow>
+            <TableRow android:id="@+id/widget53"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVCol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Colonia"
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPFr"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget54"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo"
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPTi"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget55"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVCad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cadena"
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPCa"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget56"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVCP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C.P."
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPCP"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget57"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AGEB"
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPAg"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget58"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/TVCiu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ciudad"
+                    android:textColor="#ff6633ff" />    
+                <Spinner
+                    android:id="@+id/SPCi"
+                    android:layout_width="354dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow android:id="@+id/widget58"
+          android:layout_width="467dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+                <Button
+                    android:id="@+id/cmbEnc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click me to another screen" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

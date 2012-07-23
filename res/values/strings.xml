@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VW CPP</string>
+    <string-array name="Opciones_Tabla_Precios">
+        <item>Seleccione una opción</item>
+        <item>Definitivamente SI lo usaría.</item>
+        <item>Probablemente SI lo usaría </item>
+        <item>NO SÉ si lo usaría </item>
+        <item>Probablemente NO lo usaría </item>
+        <item>Definitivamente NO lo usaría</item>
+    </string-array>
+</resources>

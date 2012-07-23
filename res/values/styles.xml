@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <resources>
+    <style name="barra_personal" parent="@android:style/Widget.RatingBar">
+       <item name="android:progressDrawable">@drawable/barra_personal</item>
+       <item name="android:minHeight">35dip</item>
+       <item name="android:maxHeight">40dip</item>
+   </style>
+  </resources>

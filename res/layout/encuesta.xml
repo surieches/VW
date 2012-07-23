@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#A2C6FB"
+>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+                android:layout_height="fill_parent" 
+                android:layout_width="fill_parent">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                     android:id="@+id/tableLayout1"
+                     android:layout_width="fill_parent"
+                     android:layout_height="fill_parent"
+        >
+                    
+            <!-- Primera Parte -->
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="5dip" >
+                <!-- 1.1 columns -->
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+                    <TableRow
+                        android:id="@+id/tableRow1_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/SexoName"
+                            android:text="Sexo"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                        <RadioGroup
+                            android:id="@+id/RadioSexo"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/SexoMujer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mujer" />
+                            <RadioButton
+                                android:id="@+id/SexoHombre"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hombre" />
+                        </RadioGroup>
+                    </TableRow>
+                    <!--  1.2 column -->
+                    <TableRow
+                        android:id="@+id/tableRow1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <TextView
+                            android:id="@+id/EdadName"
+                            android:text="Edad"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" />
+                        <RadioGroup
+                            android:id="@+id/RadioEdad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <RadioButton
+                                android:id="@+id/Edad2030"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20-30" />
+                            <RadioButton
+                                android:id="@+id/Edad3140"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="31-40" />
+                            <RadioButton
+                                android:id="@+id/Edad4150"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="41-50" />
+                            <RadioButton
+                                android:id="@+id/Edad5160"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="51-60" />
+                            <RadioButton
+                                android:id="@+id/Edad61"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="61+" />
+                        </RadioGroup>
+                    </TableRow>
+                </TableLayout>
+            </TableRow>
+    
+    
+            <!-- just draw a red line -->
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+    
+    
+            <!-- Segunda Parte -->
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+                
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+                    <!--2.1 columns -->
+                    <TableRow
+                        android:id="@+id/tableRow2_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="Que medicamento adquirio:"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                        <EditText
+                            android:id="@+id/MedicamentoName"
+                            android:textSize="18sp"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                    <!--2.2 columns -->
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/ProductoName"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"/>
+                        
+                    </TableRow>  <!-- Cierre Spinner del Producto -->
+                    <!--2.3 columns Precio Pagado -->
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/ProductoPresentacion"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"/>
+                    </TableRow>
+                    <!--2.4 columns Precio Pagado -->
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/PrecioPagadoName"
+                            android:text="Precio Pagado"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" />
+                        <EditText
+                            android:id="@+id/PrecioPagado"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow> Cierre Precio Pagado -->
+                    <!--2.4 Precio Caja -->
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/PrecioCajaName"
+                            android:text="Precio Caja"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" />
+                        <EditText
+                            android:id="@+id/PrecioCaja"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow><!--< Cierre Precio Caja -->
+                </TableLayout>
+            </TableRow>
+            
+            
+            <!--just draw a red line -->
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+    
+            <!--Tercera Parte -->
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+    
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+    
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="¿Que precio sería justo para este medicamento?"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <EditText
+                            android:id="@+id/PrecioCaja"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow> 
+                        
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="¿A qué precio considera que este medicamento es\ntan barato que dudaría de su calidad ?"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <EditText
+                            android:id="@+id/PrecioCaja"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow> 
+                                        
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="¿A qué precio considera que este medicamento es\ncaro pero aún así lo compraría?"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <EditText
+                            android:id="@+id/PrecioCaja"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow> 
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="¿A qué precio considera que este medicamento es\ntan caro que ya no lo compraría ? "
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <EditText
+                            android:id="@+id/PrecioCaja"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp" />
+                    </TableRow> 
+
+                </TableLayout>
+            </TableRow>
+                        
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+                
+                
+            <!--Parte Cuarta Tabla de precios -->
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+    
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+                             
+                     <!-- TextView de +30-->
+                    <TableRow
+                        android:id="@+id/tableRow4_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio30"
+                            android:text="Precio +30%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <!-- Spinner de +30-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_2"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio30pcion"
+                            android:layout_height="wrap_content"/>
+                    </TableRow> 
+                    <!-- TextView de +20-->
+                    <TableRow
+                        android:id="@+id/tableRow4_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio20"
+                            android:text="Precio +20%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <!-- Spinner de +20-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio20pcion"
+                            android:layout_height="wrap_content"/>
+
+                    </TableRow> 
+                    <!-- TextView de +10-->
+                    <TableRow
+                        android:id="@+id/tableRow4_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio10"
+                            android:text="Precio +10%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    
+                    <!-- Spinner de +10-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_6"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio10pcion"
+                            android:layout_height="wrap_content"/>
+
+                    </TableRow> 
+                    <!-- TextView de 90-->
+                    <TableRow
+                        android:id="@+id/tableRow4_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio90"
+                            android:text="Precio -10%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <!-- Spinner de 90-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_8"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio90pcion"
+                            android:layout_height="wrap_content"/>
+                    </TableRow> 
+                    <!-- TextView de 80-->
+                    <TableRow
+                        android:id="@+id/tableRow_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio80"
+                            android:text="Precio -20%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <!-- Spinner de 80-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_10"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio80pcion"
+                            android:layout_height="wrap_content"/>
+                    </TableRow> 
+                    <!-- TextView de 70-->
+                    <TableRow
+                        android:id="@+id/tableRow4_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/Precio70"
+                            android:text="Precio -30%"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                    <!-- Spinner de 70-->
+                    <TableRow  
+                        android:id="@+id/tableRow4_12"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Precio70pcion"
+                            android:layout_height="wrap_content"/>
+                    </TableRow> 
+
+                </TableLayout>
+            </TableRow>
+            
+            
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+            
+            <!--Parte 5 -->
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+                
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+                                 
+                    <TableRow
+                        android:id="@+id/tableRow5_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="¿Compró el médicamento con receta?"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow5_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Medicamento_Receta"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Medicamento_Receta_Si"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/Medicamento_Receta_No"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow5_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/AyudoCompraTextView"
+                            android:text="¿Algún medico le ayudo con su compra? "
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow5_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Ayudo_Compra"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Ayudo_Compra_Si"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/Ayudo_Compra_No"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="¿Hace cuanto tiempo fue la última vez que\ncompro este medicamento?"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <EditText
+                            android:id="@+id/Ultima_Compra_Text"
+                            android:textSize="18sp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Ultima_Compra"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Ultima_Compra_D"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="D" />
+                            <RadioButton
+                                android:id="@+id/Ultima_Compra_S"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="S" />
+                            <RadioButton
+                                android:id="@+id/Ultima_Compra_M"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="M" />
+                        </RadioGroup>
+                    </TableRow>
+                        
+                        
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="¿Hace cuanto visitó a su médico?"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <EditText
+                            android:id="@+id/Ultima_Visita_Text"
+                            android:textSize="18sp"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Ultima_Visita"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Ultima_Visita_D"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="D" />
+                            <RadioButton
+                                android:id="@+id/Ultima_Visita_S"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="S" />
+                            <RadioButton
+                                android:id="@+id/Ultima_Visita_M"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="M" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="¿Sustituyó este medicamento?"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Sustituyo_Medicamento"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Sustituyo_Medicamento_D"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/Sustituyo_Medicamento_N"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="¿Quién genero la sustitución?"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Quien_Sustituyo"
+                            android:orientation="horizontal"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Quien_Sustituyo_Usted"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Usted" />
+                            <RadioButton
+                                android:id="@+id/Quien_Sustituyo_Dependiente"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dependiente" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="¿Por qué medicamento venia usted originalmente?"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                            
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <EditText
+                            android:id="@+id/Venia_Originalmente"
+                            android:textSize="18sp"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/Venia_Originalmente_Spinner"
+                            android:layout_height="wrap_content" />
+                    </TableRow> 
+                        
+                </TableLayout>
+            </TableRow>
+            
+                      
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+            
+                        
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+               
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                             android:id="@+id/tableLayout1"
+                             android:layout_width="fill_parent"
+                             android:layout_height="fill_parent" >
+                                 
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:text="En este medicamento usted:"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <RadioGroup
+                            android:id="@+id/Medicamento_Alternativa"
+                            android:layout_span="4"
+                        >
+                            <RadioButton
+                                android:id="@+id/Medicamento_Alternativa_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Siempre uso alternativa" />
+                            <RadioButton
+                                android:id="@+id/Medicamento_Alternativa2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Uso mas la alternativa que el original" />
+                            <RadioButton
+                                android:id="@+id/Medicamento_Alternativa3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Uso mas el original que la alternativa" />
+                            <RadioButton
+                                android:id="@+id/Medicamento_Alternativa4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Siempre uso el original" />
+                        </RadioGroup>
+                    </TableRow>
+                    
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+ 
+                        <TextView
+                            android:id="@+id/MedicamentoAdquirioName"
+                            android:text="Por último, nos indica el nombre\nde algún medicamento que no encontro:"
+                            android:textSize="20sp"
+                            android:textColor="#ff3333ff" /> 
+                    </TableRow>
+                            
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip" >
+                        <EditText
+                            android:id="@+id/No_Encontro"
+                            android:textSize="18sp"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                    <TableRow  
+                        android:id="@+id/tableRow4"  
+                        android:layout_height="wrap_content"  
+                        android:layout_width="match_parent"  
+                        android:gravity="center_horizontal">
+                        <Spinner
+                            android:id="@+id/No_Encontro_Spinner"
+                            android:layout_height="wrap_content"
+                            android:layout_width="fill_parent"/>
+                    </TableRow>
+                        
+                </TableLayout>
+            </TableRow>
+            
+                       
+            <View
+                android:layout_height="2dip"
+                android:background="#FF0000" />
+                
+                
+               
+            <TableRow
+                android:id="@+id/tableRow15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dip" >
+                <Button
+                    android:id="@+id/Boton_Enviar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ENVIAR" />                  
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>
