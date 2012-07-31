@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+	android:id="@+id/widget42"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+        android:background="#A2C6FB"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow
+            android:id="@+id/widget11"
+            android:layout_width="467dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/TVUsu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usuario"
+                    android:textColor="#ff6633ff" />
+            <EditText
+                    android:id="@+id/ETUsu"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"	
+                    android:textSize="18sp" />
+    </TableRow>
+    <TableRow android:id="@+id/widget12"
+            android:layout_width="467dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/TVPas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password"
+                    android:textColor="#ff6633ff" />    
+            <EditText
+                android:id="@+id/ETPas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+    </TableRow>
+    <TableRow android:id="@+id/widget58"
+	android:layout_width="467dp"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+        <Button
+            android:id="@+id/btIng"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingresar" />
+    </TableRow>
+</TableLayout>
