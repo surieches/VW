@@ -18,6 +18,7 @@ public class MyAndroid extends Activity {
      */
     private DataBaseAndroid myDbHelper;
     private Context context;
+    private FarmaciaBean fb;
     //EditText
     private EditText MedicamentoName;
     //Spinner 
@@ -36,6 +37,11 @@ public class MyAndroid extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.encuesta);
         context = this;
+        
+        this.fb = ActivityMagg.fb;
+            Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
+                    fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
+        
         myDbHelper = new DataBaseAndroid(this);
         try {
             myDbHelper.createDataBase();
