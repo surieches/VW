@@ -12,4 +12,6 @@
         <item>Probablemente NO lo usaría </item>
         <item>Definitivamente NO lo usaría</item>
     </string-array>
+    <string name="nf">¿No encontraste tu farmacia?</string>
+    <string name="iniciar">Iniciar Encuesta</string>
 </resources>

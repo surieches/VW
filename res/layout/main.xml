@@ -122,14 +122,19 @@
                     android:layout_height="wrap_content" />
             </TableRow>
             <TableRow android:id="@+id/widget58"
-          android:layout_width="467dp"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-                <Button
-                    android:id="@+id/cmbEnc"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Iniciar Encuesta" />
+            android:layout_width="467dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/cmbEnc"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/iniciar" />
+                    <Button
+                        android:id="@+id/btnNFar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nf" />
             </TableRow>
         </TableLayout>
     </ScrollView>

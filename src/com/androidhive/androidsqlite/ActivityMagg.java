@@ -24,20 +24,18 @@ public class ActivityMagg extends Activity{
     
     private AutoCompleteTextView textView;
     private DataBaseAndroid myDbHelper; 
-    private Context context;
+    private final Context context = this;
     /** 
      * The Bean needed for passing the pharmacy's attributes.  
      * It's a static variable.
      */ 
-    public static FarmaciaBean fb;   
+    public static FarmaciaBean fb;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.main);                                  
-            context = this;
-            
-            fb = new FarmaciaBean();//Instancia del bean
+            setContentView(R.layout.main);            
+                        
             textView = (AutoCompleteTextView)findViewById(R.id.ACFar);//Get the Autocomplete's View
             
             myDbHelper = new DataBaseAndroid(this); //Instancia de la BD           
@@ -54,7 +52,8 @@ public class ActivityMagg extends Activity{
                 if(password!= null && password.get(0).equals(Login.usu.getPassword())){                    
                     cargarFarmacias();
                     addKeyListener(); 
-                    addListenerOnButton(); 
+                    addListenerOnButton();
+                    addListenerNuevaFarmacia();
                 }else{
                     Toast.makeText(ActivityMagg.this,"Error con los datos de usuario", Toast.LENGTH_SHORT).show();
                 }
@@ -270,46 +269,61 @@ public class ActivityMagg extends Activity{
      * Listener para el boton de cambio de página. Verifica que los datos sean correctos, de ser ése el caso, manda a la siguiente Actividad.    
      */
     private void addListenerOnButton() {
-		Button button = (Button) findViewById(R.id.cmbEnc);
-                /* Listener para clic.*/
-		button.setOnClickListener(new OnClickListener() { 
-			@Override
-			public void onClick(View arg0) {
-                            Spinner sCol = (Spinner)findViewById(R.id.SPFr);
-                            Spinner sTip = (Spinner)findViewById(R.id.SPTi);
-                            Spinner sCad = (Spinner)findViewById(R.id.SPCa);
-                            Spinner sCP = (Spinner)findViewById(R.id.SPCP);
-                            Spinner sAge = (Spinner)findViewById(R.id.SPAg); 
-                            Spinner sEdo = (Spinner)findViewById(R.id.SPCi);
-                            //En caso de que haya farmacia escrita y datos en los Spinner de colonia y Tipo                               
-                            if(textView.getText().length()>0 && sCol.getCount()>0 && sTip.getCount()>0){ 
-                                boolean correcto = false;
-                                String[] columna = {"nombre_farmacia"};//Nombre de la columna para realizar la consulta
-                                //Obtenemos la lista con las tuplas resultantes
-                                List farmacias = myDbHelper.getColumna("farmacias", columna, "col_farmacia like '"+sCol.getSelectedItem()+"' and tipo_farmacia like '"+sTip.getSelectedItem()+"' and edo_farmacia like '"+sEdo.getSelectedItem()+"'");                                
-                                for(int i=0;i<farmacias.size();i++){//Revisamos que los datos para ver si son consistentes.
-                                    if(farmacias.get(i).toString().equals(textView.getText().toString())){                                        
-                                        correcto = true;
-                                        break;
-                                    }
-                                }
-                                if(correcto){//En caso de que sea correcto, guardamos datos en el Bean y pasamos a la siguiente actividad.
-                                    fb.setFarmacia(textView.getText().toString());
-                                    fb.setColonia(sCol.getSelectedItem().toString());
-                                    fb.setTipoCadena(sTip.getSelectedItem().toString());
-                                    fb.setTipo2(sCad.getSelectedItem().toString());
-                                    fb.setCP(sCP.getSelectedItem().toString());
-                                    fb.setAgeb(sAge.getSelectedItem().toString());
-                                    fb.setCiudad(sEdo.getSelectedItem().toString());
-                                    Intent intent = new Intent(context, MyAndroid.class);
-                                    startActivity(intent);
-                                }else{//En caso de que los datos no sean consistentes.
-                                    Toast.makeText(ActivityMagg.this,"El nombre de la farmacia no coincide con los datos.\nAl actualizar el nombre de la farmacia es necesario presionar enter", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{//En caso de que no haya frmacia.
-                                Toast.makeText(ActivityMagg.this,"Necesitas escribir el nombre de la farmacia y presionar enter", Toast.LENGTH_SHORT).show();
+        Button button = (Button) findViewById(R.id.cmbEnc);
+        /* Listener para clic.*/
+        button.setOnClickListener(new OnClickListener() { 
+                @Override
+                public void onClick(View arg0) {
+                    Spinner sCol = (Spinner)findViewById(R.id.SPFr);
+                    Spinner sTip = (Spinner)findViewById(R.id.SPTi);
+                    Spinner sCad = (Spinner)findViewById(R.id.SPCa);
+                    Spinner sCP = (Spinner)findViewById(R.id.SPCP);
+                    Spinner sAge = (Spinner)findViewById(R.id.SPAg); 
+                    Spinner sEdo = (Spinner)findViewById(R.id.SPCi);
+                    //En caso de que haya farmacia escrita y datos en los Spinner de colonia y Tipo                               
+                    if(textView.length()>0 && sCol.getCount()>0 && sTip.getCount()>0){ 
+                        boolean correcto = false;
+                        String[] columna = {"nombre_farmacia"};//Nombre de la columna para realizar la consulta
+                        //Obtenemos la lista con las tuplas resultantes
+                        List farmacias = myDbHelper.getColumna("farmacias", columna, "col_farmacia like '"+sCol.getSelectedItem()+"' and tipo_farmacia like '"+sTip.getSelectedItem()+"' and edo_farmacia like '"+sEdo.getSelectedItem()+"'");                                
+                        for(int i=0;i<farmacias.size();i++){//Revisamos que los datos para ver si son consistentes.
+                            if(farmacias.get(i).toString().equals(textView.getText().toString())){                                        
+                                correcto = true;
+                                break;
                             }
-			}
-		});
+                        }
+                        if(correcto){//En caso de que sea correcto, guardamos datos en el Bean y pasamos a la siguiente actividad.
+                            fb = new FarmaciaBean();//Instancia del bean
+                            fb.setFarmacia(textView.getText().toString());
+                            fb.setColonia(sCol.getSelectedItem().toString());
+                            fb.setTipoCadena(sTip.getSelectedItem().toString());
+                            fb.setTipo2(sCad.getSelectedItem().toString());
+                            fb.setCP(sCP.getSelectedItem().toString());
+                            fb.setAgeb(sAge.getSelectedItem().toString());
+                            fb.setCiudad(sEdo.getSelectedItem().toString());
+                            fb.setPendiente(false);
+                            Intent intent = new Intent(context, MyAndroid.class);
+                            startActivity(intent);
+                        }else{//En caso de que los datos no sean consistentes.
+                            Toast.makeText(ActivityMagg.this,"El nombre de la farmacia no coincide con los datos.\nAl actualizar el nombre de la farmacia es necesario presionar enter", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{//En caso de que no haya frmacia.
+                        Toast.makeText(ActivityMagg.this,"Necesitas escribir el nombre de la farmacia y presionar enter", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        });
+    }
+    /**
+     * 
+     */
+    public void addListenerNuevaFarmacia(){
+        Button button = (Button) findViewById(R.id.btnNFar);
+        button.setOnClickListener(new OnClickListener() { 
+            @Override
+                public void onClick(View arg0) {                    
+                    Intent intent = new Intent(context, NuevaFarmacia.class);
+                    startActivity(intent);
+                }
+        });
     }
 }

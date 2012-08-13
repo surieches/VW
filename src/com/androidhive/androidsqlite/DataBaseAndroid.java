@@ -100,13 +100,18 @@ public class DataBaseAndroid extends SQLiteOpenHelper{
         String myPath = DB_PATH + DB_NAME;
     	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);         
     }
-        
+    /**
+     * Distinc de la columna especificada.
+     * @param tabla Nombre de la tabla a consultar.
+     * @param columna Nombre de la columna que se desea obtener.
+     * @param where Condicion where para la consulta sin la palabra 'where' (null en caso de no existir condicion).
+     * @return Lista con los datos de la columna especificada.
+     */    
     public List getColumna(String tabla, String[] columna, String where) {
         List filas = new ArrayList();
         SQLiteDatabase db = this.myDataBase;               
         if(db!=null){            
-            //Cursor c = this.getReadableDatabase().rawQuery("select distinct s from farmacias", null);
-            Cursor c = this.getReadableDatabase().query(true, tabla, columna, where, null, null, null,null,null);                         
+            Cursor c = this.getReadableDatabase().query(true, tabla, columna, where, null, null, null,null,null);            
             if(c.moveToFirst()){
                 do{                    
                     filas.add(c.getString(0));

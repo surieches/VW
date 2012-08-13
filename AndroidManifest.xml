@@ -24,6 +24,10 @@
         </activity>
         <activity
             android:label="@string/app_name"
+            android:name=".NuevaFarmacia" >
+        </activity>
+        <activity
+            android:label="@string/app_name"
             android:name=".MyAndroid" >
         </activity>
     </application>

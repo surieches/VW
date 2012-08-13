@@ -11,7 +11,34 @@ public class FarmaciaBean {
     private String Tipo2;
     private String CP;
     private String Ageb;
-    private String Ciudad;       
+    private String Ciudad;
+    private String Municipio;
+    private String Direccion;    
+    private boolean Pendiente;
+    
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
+    }
+    
+    public String getMunicipio() {
+        return Municipio;
+    }
+
+    public void setMunicipio(String Municipio) {
+        this.Municipio = Municipio;
+    }
+    
+    public boolean isPendiente() {
+        return Pendiente;
+    }
+
+    public void setPendiente(boolean Pendiente) {
+        this.Pendiente = Pendiente;
+    }
     
     public String getAgeb() {
         return Ageb;

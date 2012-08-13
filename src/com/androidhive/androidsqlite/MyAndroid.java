@@ -38,9 +38,25 @@ public class MyAndroid extends Activity {
         setContentView(R.layout.encuesta);
         context = this;
         
-        this.fb = ActivityMagg.fb;
+        if(ActivityMagg.fb != null){
+            Toast.makeText(this, "Registrada", Toast.LENGTH_SHORT).show();
+            this.fb = ActivityMagg.fb;
             Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
                     fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
+            ActivityMagg.fb = null;
+        }
+        else if(NuevaFarmacia.fb != null){
+            Toast.makeText(this, "NO Registrada", Toast.LENGTH_SHORT).show();
+            this.fb = NuevaFarmacia.fb;
+            Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
+                    " - "+fb.getDireccion()+" - "+fb.getCP()+" - "+fb.getMunicipio()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
+            NuevaFarmacia.fb = null;
+        }
+        else
+            Toast.makeText(this, "Ninguna", Toast.LENGTH_SHORT).show();
+        /*this.fb = ActivityMagg.fb;
+        Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
+                fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();*/
         
         myDbHelper = new DataBaseAndroid(this);
         try {
@@ -57,6 +73,7 @@ public class MyAndroid extends Activity {
         addKeyListener();
         addRadioGroupListener();
         myDbHelper.close();
+        
     }
 
     /**
