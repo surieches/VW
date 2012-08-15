@@ -51,8 +51,11 @@ public class Login extends Activity{
                 if(password!=null){
                     EditText et = (EditText)findViewById(R.id.ETPas);
                     if(password.get(0).toString().equals(et.getText().toString())){
+                        columna[0] = "_id";                        
+                        password = myDbHelper.getColumna("encuestador", columna, "username like '"+tv.getText()+"'");                        
                         usu.setUsername(tv.getText().toString());
                         usu.setPassword(et.getText().toString());
+                        usu.setIdusu(password.get(0).toString());
                         Intent intent = new Intent(context, ActivityMagg.class);
                         startActivity(intent);
                     }else{

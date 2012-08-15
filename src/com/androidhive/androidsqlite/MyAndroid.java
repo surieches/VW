@@ -31,6 +31,10 @@ public class MyAndroid extends Activity {
     //TableRow
     private TableRow tableRow5_3;//Seccion 5_3
     private TableRow tableRow5_4;//Seccion 5_4
+    
+    private boolean pendienteFarmacia = false; 
+    private boolean canasta = false;
+    private int idusu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,22 +42,23 @@ public class MyAndroid extends Activity {
         setContentView(R.layout.encuesta);
         context = this;
         
-        if(ActivityMagg.fb != null){
-            Toast.makeText(this, "Registrada", Toast.LENGTH_SHORT).show();
+        idusu = Integer.parseInt(Login.usu.getIdusu());
+        
+        if(ActivityMagg.fb != null){             
             this.fb = ActivityMagg.fb;
-            Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
-                    fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(MyAndroid.this,"Usuario: "+idusu+" "+fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
+                    fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();*/
             ActivityMagg.fb = null;
         }
-        else if(NuevaFarmacia.fb != null){
-            Toast.makeText(this, "NO Registrada", Toast.LENGTH_SHORT).show();
+        else if(NuevaFarmacia.fb != null){            
+            pendienteFarmacia = true;
             this.fb = NuevaFarmacia.fb;
-            Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
-                    " - "+fb.getDireccion()+" - "+fb.getCP()+" - "+fb.getMunicipio()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(MyAndroid.this,"Usuario: "+idusu+" "+fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
+                    " - "+fb.getDireccion()+" - "+fb.getCP()+" - "+fb.getMunicipio()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();*/
             NuevaFarmacia.fb = null;
         }
         else
-            Toast.makeText(this, "Ninguna", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error en la aplicación. Favor de Reiniciar.", Toast.LENGTH_SHORT).show();
         /*this.fb = ActivityMagg.fb;
         Toast.makeText(MyAndroid.this,fb.getFarmacia()+" - "+fb.getColonia()+" - "+fb.getTipoCadena()+" - "+
                 fb.getTipo2()+" - "+fb.getCP()+" - "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();*/
