@@ -13,8 +13,26 @@ public class FarmaciaBean {
     private String Ageb;
     private String Ciudad;
     private String Municipio;
-    private String Direccion;    
+    private String Direccion;
+    private String Telefono;
     private boolean Pendiente;
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTelefono() {
+        return Telefono;
+    }
+
+    public void setTelefono(String Telefono) {
+        this.Telefono = Telefono;
+    }    
     
     public String getDireccion() {
         return Direccion;

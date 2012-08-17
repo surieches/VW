@@ -4,10 +4,13 @@
  */
 package com.androidhive.androidsqlite;
 
+import Cpp.Utilities.Utilidades;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -46,22 +49,17 @@ public class NuevaFarmacia extends Activity{
     /**
      * Llena el Spinner con todos los tipos de cadena
      */
-    public void llenarTipoCadena(){
-        
-        try {
-            final Spinner s = (Spinner)findViewById(R.id.SPNFTip);//Obtenemos la vista del Spinner de tipo.            
-            String[] columna = {"tipo_farmacia"};
-            List tipo = db.getColumna("farmacias", columna, null);
-            tipo.add(0, "Selecciona un tipo de farmacia");
-            /*Asociamos la lista tipo con el spinner*/
-            ArrayAdapter<String> data = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,tipo);
-            data.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            s.setAdapter(data); 
-        }catch(SQLException sqle){}
-        finally{
-            db.close();
-        }
+    public void llenarTipoCadena(){                
+        final Spinner s = (Spinner)findViewById(R.id.SPNFTip);//Obtenemos la vista del Spinner de tipo.            
+        String[] columna = {"tipo_farmacia"};
+        List tipo = db.getColumna("farmacias", columna, null);
+        tipo.add(0, "Selecciona un tipo de farmacia");
+        /*Asociamos la lista tipo con el spinner*/
+        ArrayAdapter<String> data = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,tipo);
+        data.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        s.setAdapter(data); 
     }
+        
     /**
      * Accion del boton para pasar a la entrevista
      */
@@ -78,7 +76,8 @@ public class NuevaFarmacia extends Activity{
                     EditText cp = (EditText)findViewById(R.id.ETNFCP);
                     EditText mun = (EditText)findViewById(R.id.ETNFMun);
                     EditText ciu = (EditText)findViewById(R.id.ETNFCiu);
-                    if(far.length()>0 && col.length()>0 && dir.length()>0 && cp.length()>0 && mun.length()>0 && ciu.length()>0 && tip.getSelectedItemPosition()>0){
+                    EditText tel = (EditText)findViewById(R.id.ETNFTel);
+                    if(far.length()>0 && col.length()>0 && dir.length()>0 && cp.length()>0 && mun.length()>0 && ciu.length()>0 && tel.length()>0 && tip.getSelectedItemPosition()>0){
                         fb = new FarmaciaBean();//Instancia del bean
                         fb.setFarmacia(far.getText().toString());
                         fb.setColonia(col.getText().toString());
@@ -87,9 +86,15 @@ public class NuevaFarmacia extends Activity{
                         fb.setCP(cp.getText().toString());                        
                         fb.setMunicipio(mun.getText().toString());
                         fb.setCiudad(ciu.getText().toString());
-                        fb.setPendiente(true);
+                        fb.setTelefono(tel.getText().toString());
+                        fb.setAgeb("");
+                        fb.setPendiente(true);                        
+                        String etiquetas = "NOMBRE_FARMACIA,TIPO_FARMACIA,DIR_FARMACIA,COL_FARMACIA,CP_FARMACIA,AGEB,MUNICIPIO_FARMACIA,EDO_FARMACIA,TELEFONO,PENDIENTE";
+                        String valores = fb.getFarmacia()+","+fb.getTipoCadena()+","+fb.getDireccion()+","+fb.getColonia()+","+fb.getCP()+","+
+                                fb.getAgeb()+","+fb.getMunicipio()+","+fb.getCiudad()+","+fb.getTelefono()+",1"; 
+                        fb.setId(db.insertar("farmacias", etiquetas, valores));
                         Intent intent = new Intent(context, MyAndroid.class);
-                        startActivity(intent);
+                        startActivity(intent);                        
                     }else{
                         Toast.makeText(NuevaFarmacia.this,"Necesitas llenar todos los campos", Toast.LENGTH_SHORT).show();
                     }

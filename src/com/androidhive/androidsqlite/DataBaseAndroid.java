@@ -1,5 +1,6 @@
 package com.androidhive.androidsqlite;
 
+import Cpp.Utilities.Utilidades;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -123,8 +124,36 @@ public class DataBaseAndroid extends SQLiteOpenHelper{
         }
         else
             return null;
-    }     
+    }
     
+    /**
+     * No Distinc de la columna especificada.
+     * @param tabla Nombre de la tabla a consultar.
+     * @param columna Nombre de la columna que se desea obtener.
+     * @param where Condicion where para la consulta sin la palabra 'where' (null en caso de no existir condicion).
+     * @return Lista con los datos de la columna especificada.
+     */    
+    public List getColumnaCompleta(String tabla, String[] columna, String where) {
+        List filas = new ArrayList();
+        SQLiteDatabase db = this.myDataBase;               
+        if(db!=null){            
+            Cursor c = this.getReadableDatabase().query(false, tabla, columna, where, null, null, null,null,null);            
+            if(c.moveToFirst()){
+                do{                    
+                    filas.add(c.getString(0));
+                }while(c.moveToNext());
+                return filas;
+            }
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+    
+    public long insertar(String tabla, String atributos, String valores){
+        return this.getWritableDatabase().insert(tabla, null, Utilidades.crearContentValues(atributos, valores));
+    }
     @Override
     public synchronized void close() {
         if(myDataBase != null)
