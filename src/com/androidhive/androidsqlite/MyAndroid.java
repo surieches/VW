@@ -1,5 +1,6 @@
 package com.androidhive.androidsqlite;
 
+import Beans.FarmaciaBean;
 import android.app.Activity;
 import android.content.Context;
 import android.database.SQLException;
@@ -119,9 +120,9 @@ public class MyAndroid extends Activity {
 
         try {
             myDbHelper.openDataBase();
-            String[] colu = {"Nombre_Farmacia"};
+            /*String[] colu = {"Nombre_Farmacia"};
             List enc = myDbHelper.getColumnaCompleta("farmacias", colu, "_id = "+fb.getId());            
-            Toast.makeText(this, "Nombre de farmacia: "+enc.get(0), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nombre de farmacia: "+enc.get(0), Toast.LENGTH_SHORT).show();*/
         } catch (SQLException sqle) {
         }
         fullSpinnerOptions();//Para llenar las opciones de los Spinner de +30% hasta -30%.

@@ -1,5 +1,6 @@
 package com.androidhive.androidsqlite;
 
+import Beans.FarmaciaBean;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,18 +35,12 @@ public class ActivityMagg extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.main);            
-                        
-            textView = (AutoCompleteTextView)findViewById(R.id.ACFar);//Get the Autocomplete's View
-            
-            myDbHelper = new DataBaseAndroid(this); //Instancia de la BD           
-            try {
-                    myDbHelper.createDataBase();                                                
-            } catch (IOException ioe) {
-                    throw new Error("Unable to create database");
-            }
+            setContentView(R.layout.main);
+            textView = (AutoCompleteTextView)findViewById(R.id.ACFar);//Get the Autocomplete's View            
+            myDbHelper = new DataBaseAndroid(this); //Instancia de la BD                       
 
             try {
+                myDbHelper.createDataBase();   
                 myDbHelper.openDataBase();
                 String[] columna = {"password"};
                 List password = myDbHelper.getColumna("encuestador", columna, "username like '"+Login.usu.getUsername()+"'");
@@ -54,11 +49,16 @@ public class ActivityMagg extends Activity{
                     addKeyListener(); 
                     addListenerOnButton();
                     addListenerNuevaFarmacia();
+                    addListenerSincronizar();
                 }else{
                     Toast.makeText(ActivityMagg.this,"Error con los datos de usuario", Toast.LENGTH_SHORT).show();
                 }
-            }catch(SQLException sqle){}
-            finally{
+            }
+            catch (IOException ioe) {
+                    throw new Error("Unable to create database");
+            }catch(SQLException e){
+                Toast.makeText(ActivityMagg.this,"Un error sucedio: "+e.toString()+"\nReinicie la aplicación por favor.", Toast.LENGTH_LONG).show();
+            }finally{
                 myDbHelper.close();
             }
     }
@@ -292,7 +292,7 @@ public class ActivityMagg extends Activity{
                                 break;
                             }
                         }
-                        if(correcto){//En caso de que sea correcto, guardamos datos en el Bean y pasamos a la siguiente actividad.
+                        if(correcto){//En caso de que sea correcto, guardamos datos en el Bean y pasamos a la siguiente actividad.                            
                             fb = new FarmaciaBean();//Instancia del bean
                             fb.setFarmacia(textView.getText().toString());
                             fb.setColonia(sCol.getSelectedItem().toString());
@@ -314,7 +314,7 @@ public class ActivityMagg extends Activity{
         });
     }
     /**
-     * 
+     * Dirige la aplicacion a la actividad para registrar una nueva farmacia.
      */
     public void addListenerNuevaFarmacia(){
         Button button = (Button) findViewById(R.id.btnNFar);
@@ -322,6 +322,19 @@ public class ActivityMagg extends Activity{
             @Override
                 public void onClick(View arg0) {                    
                     Intent intent = new Intent(context, NuevaFarmacia.class);
+                    startActivity(intent);
+                }
+        });
+    }
+    /**
+     * Dirige la aplicacion a la actividad para sincronizar.
+     */
+    public void addListenerSincronizar(){
+        Button button = (Button) findViewById(R.id.btnSin);
+        button.setOnClickListener(new OnClickListener() { 
+            @Override
+                public void onClick(View arg0) {                    
+                    Intent intent = new Intent(context, Sincronizacion.class);
                     startActivity(intent);
                 }
         });

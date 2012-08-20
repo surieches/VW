@@ -92,6 +92,7 @@
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"	
                     android:numeric="integer"
+                    android:maxLength="5"
                     android:textSize="18sp" />
             </TableRow>
             <TableRow android:id="@+id/trnf6"

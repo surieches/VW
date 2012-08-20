@@ -1,5 +1,6 @@
 package com.androidhive.androidsqlite;
 
+import Beans.Usuario;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,17 +28,19 @@ public class Login extends Activity{
             setContentView(R.layout.login);
             usu = new Usuario();
             context = this;
-            myDbHelper = new DataBaseAndroid(this); //Instancia de la BD           
+            myDbHelper = new DataBaseAndroid(this); //Instancia de la BD                       
             try {
-                    myDbHelper.createDataBase();                                                
-            } catch (IOException ioe) {
-                    throw new Error("Unable to create database");
+                myDbHelper.createDataBase(); 
+                myDbHelper.openDataBase(); 
+                iniciarSesion();
             }
-            try {
-                    myDbHelper.openDataBase();                    
-            }catch(SQLException sqle){}                                   
-            iniciarSesion();
-            myDbHelper.close();
+            catch (IOException ioe) {
+                throw new Error("Unable to create database");
+            }catch(SQLException e){
+                Toast.makeText(Login.this,"Un error sucedio: "+e.toString()+"\nReinicie la aplicación por favor.", Toast.LENGTH_LONG).show();
+            }finally{
+                myDbHelper.close();
+            }
     }
 
     private void iniciarSesion() {                            

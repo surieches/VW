@@ -133,22 +133,26 @@ public class DataBaseAndroid extends SQLiteOpenHelper{
      * @param where Condicion where para la consulta sin la palabra 'where' (null en caso de no existir condicion).
      * @return Lista con los datos de la columna especificada.
      */    
-    public List getColumnaCompleta(String tabla, String[] columna, String where) {
-        List filas = new ArrayList();
+    public List<String[]> getTabla(String tabla, String[] columna, String where) {
+        List<String[]> filas = new ArrayList();//Lista 
+        String[] fila;
         SQLiteDatabase db = this.myDataBase;               
         if(db!=null){            
             Cursor c = this.getReadableDatabase().query(false, tabla, columna, where, null, null, null,null,null);            
-            if(c.moveToFirst()){
+            if(c.moveToFirst()){                
                 do{                    
-                    filas.add(c.getString(0));
+                    fila = new String[c.getColumnCount()];
+                    for(int i=0;i<c.getColumnCount();i++)
+                        fila[i] = c.getString(i);
+                    filas.add(fila);
                 }while(c.moveToNext());
                 return filas;
             }
             else
-                return null;
+                return new ArrayList();
         }
         else
-            return null;
+            return new ArrayList();
     }
     
     public long insertar(String tabla, String atributos, String valores){

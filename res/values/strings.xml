@@ -8,10 +8,11 @@
         <item>Seleccione una opción</item>
         <item>Definitivamente SI lo usaría.</item>
         <item>Probablemente SI lo usaría </item>
-        <item>NO SÉ si lo usaría </item>
+        <item>NO sé si lo usaría </item>
         <item>Probablemente NO lo usaría </item>
         <item>Definitivamente NO lo usaría</item>
     </string-array>
     <string name="nf">¿No encontraste tu farmacia?</string>
     <string name="iniciar">Iniciar Encuesta</string>
+    <string name="sincronizar">Iniciar Sincronización</string>
 </resources>

@@ -1,16 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.androidhive.androidsqlite;
 
-import Cpp.Utilities.Utilidades;
+import Beans.FarmaciaBean;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -30,18 +24,17 @@ public class NuevaFarmacia extends Activity{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.nuevafar);            
             context = this;
-            db = new DataBaseAndroid(context); //Instancia de la BD           
+            db = new DataBaseAndroid(context); //Instancia de la BD                       
             try {
-                    db.createDataBase();                      
-            } catch (IOException ioe) {
-                    throw new Error("Unable to create database");
-            }
-            
-            try {                
-                db.openDataBase(); 
+                db.createDataBase();
+                db.openDataBase();                 
                 llenarTipoCadena();
                 addButtonListener();
-            }catch(SQLException sqle){}
+            }catch (IOException ioe) {
+                throw new Error("Unable to create database");
+            }catch(SQLException e){
+                Toast.makeText(NuevaFarmacia.this,"Un error sucedio: "+e.toString()+"\nReinicie la aplicación por favor.", Toast.LENGTH_LONG).show();
+            }
             finally{
                 db.close();
             }            
@@ -73,7 +66,7 @@ public class NuevaFarmacia extends Activity{
                     EditText col = (EditText)findViewById(R.id.ETNFCol);
                     Spinner tip = (Spinner)findViewById(R.id.SPNFTip);
                     EditText dir = (EditText)findViewById(R.id.ETNFDir);
-                    EditText cp = (EditText)findViewById(R.id.ETNFCP);
+                    EditText cp = (EditText)findViewById(R.id.ETNFCP);                    
                     EditText mun = (EditText)findViewById(R.id.ETNFMun);
                     EditText ciu = (EditText)findViewById(R.id.ETNFCiu);
                     EditText tel = (EditText)findViewById(R.id.ETNFTel);
@@ -92,14 +85,12 @@ public class NuevaFarmacia extends Activity{
                         String etiquetas = "NOMBRE_FARMACIA,TIPO_FARMACIA,DIR_FARMACIA,COL_FARMACIA,CP_FARMACIA,AGEB,MUNICIPIO_FARMACIA,EDO_FARMACIA,TELEFONO,PENDIENTE";
                         String valores = fb.getFarmacia()+","+fb.getTipoCadena()+","+fb.getDireccion()+","+fb.getColonia()+","+fb.getCP()+","+
                                 fb.getAgeb()+","+fb.getMunicipio()+","+fb.getCiudad()+","+fb.getTelefono()+",1"; 
-                        fb.setId(db.insertar("farmacias", etiquetas, valores));
+                        fb.setId(db.insertar("farmacias", etiquetas, valores));//Insertamos la nueva faracia en la bd y agregamos su ID al bean
                         Intent intent = new Intent(context, MyAndroid.class);
                         startActivity(intent);                        
                     }else{
                         Toast.makeText(NuevaFarmacia.this,"Necesitas llenar todos los campos", Toast.LENGTH_SHORT).show();
                     }
-                    /*Intent intent = new Intent(context, MyAndroid.class);
-                    startActivity(intent);  */
                 }
         });
     }

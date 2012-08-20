@@ -1,8 +1,6 @@
-package com.androidhive.androidsqlite;
+package Beans;
 
-/*
- * To change this template, choose Tools | Templates and open the template in
- * the editor.e
+/**
  *
  * Descripcion: JavaBean que se utiliza para la encuesta.
  */

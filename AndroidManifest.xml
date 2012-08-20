@@ -24,6 +24,10 @@
         </activity>
         <activity
             android:label="@string/app_name"
+            android:name=".Sincronizacion" >
+        </activity>
+        <activity
+            android:label="@string/app_name"
             android:name=".NuevaFarmacia" >
         </activity>
         <activity
@@ -31,5 +35,5 @@
             android:name=".MyAndroid" >
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" /><!--Permiso para que la aplicacion pueda acceder a internet -->
 </manifest>

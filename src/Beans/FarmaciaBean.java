@@ -1,4 +1,4 @@
-package com.androidhive.androidsqlite;
+package Beans;
 
 /**
  *
