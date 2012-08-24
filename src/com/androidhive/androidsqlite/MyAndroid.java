@@ -8,8 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.*;
+import android.widget.AdapterView.OnItemSelectedListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +71,8 @@ public class MyAndroid extends Activity {
     //Autor MAGG    
     private boolean canasta = false;
     private int idusu;
+    //Para el bean de encuesta
+    private BeanEncuesta beanEncuesta = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,6 @@ public class MyAndroid extends Activity {
         context = this;
 
         idusu = Integer.parseInt(Login.usu.getIdusu());
-        Toast.makeText(MyAndroid.this,"Usuario: "+idusu,Toast.LENGTH_SHORT).show();
 
         if (ActivityMagg.fb != null) {
             this.fb = ActivityMagg.fb;
@@ -90,7 +91,7 @@ public class MyAndroid extends Activity {
              * "+fb.getAgeb()+" - "+fb.getCiudad(), Toast.LENGTH_SHORT).show();
              */
             ActivityMagg.fb = null;
-        } else if (NuevaFarmacia.fb != null) {            
+        } else if (NuevaFarmacia.fb != null) {
             this.fb = NuevaFarmacia.fb;
             /*
              * Toast.makeText(MyAndroid.this,"Usuario: "+idusu+"
@@ -103,6 +104,8 @@ public class MyAndroid extends Activity {
         } else {
             Toast.makeText(this, "Error en la aplicación. Favor de Reiniciar.", Toast.LENGTH_SHORT).show();
         }
+
+        Toast.makeText(MyAndroid.this, "Usuario: " + idusu + " Farmacia Pendiente: " + fb.isPendiente(), Toast.LENGTH_SHORT).show();
         /*
          * this.fb = ActivityMagg.fb;
          * Toast.makeText(MyAndroid.this,fb.getFarmacia()+" -
@@ -120,9 +123,6 @@ public class MyAndroid extends Activity {
 
         try {
             myDbHelper.openDataBase();
-            /*String[] colu = {"Nombre_Farmacia"};
-            List enc = myDbHelper.getColumnaCompleta("farmacias", colu, "_id = "+fb.getId());            
-            Toast.makeText(this, "Nombre de farmacia: "+enc.get(0), Toast.LENGTH_SHORT).show();*/
         } catch (SQLException sqle) {
         }
         fullSpinnerOptions();//Para llenar las opciones de los Spinner de +30% hasta -30%.
@@ -135,12 +135,12 @@ public class MyAndroid extends Activity {
     /**
      * Sirve para cuando da enter y se llenen los spinner.
      *
-     * @version 1.0 @autor MaximusPegasus
+     * @version 1.0
+     * @autor MaximusPegasus
      */
     private void addKeyListener() {
         MedicamentoName = (EditText) findViewById(R.id.MedicamentoName);
         MedicamentoName.setOnKeyListener(new View.OnKeyListener() {
-
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     //LLenamos el spinner de producto
@@ -159,7 +159,6 @@ public class MyAndroid extends Activity {
         Precio80_Text = (TextView) findViewById(R.id.Precio80_Text);
         Precio70_Text = (TextView) findViewById(R.id.Precio70_Text);
         Precio_Pagado_Text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {//Si se sale del foco
                     if (!(Precio_Pagado_Text.getText().toString().equals(""))) {
@@ -184,7 +183,6 @@ public class MyAndroid extends Activity {
 
         No_Encontro_Text = (EditText) findViewById(R.id.No_Encontro_Text);
         No_Encontro_Text.setOnKeyListener(new View.OnKeyListener() {
-
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     //LLenamos el spinner de producto
@@ -197,7 +195,6 @@ public class MyAndroid extends Activity {
 
         Venia_Originalmente_Text = (EditText) findViewById(R.id.Venia_Originalmente_Text);
         Venia_Originalmente_Text.setOnKeyListener(new View.OnKeyListener() {
-
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     //LLenamos el spinner de producto
@@ -213,12 +210,12 @@ public class MyAndroid extends Activity {
      * Agregamos el evento change del Spinner ProductoName Nota es necesario que
      * para que se llame despues de haber llenado la data.
      *
-     * @version 1.0 @autor MaximusPegasus
+     * @version 1.0
+     * @autor MaximusPegasus
      */
     private void eventsSpinners() {
         ProductoPresentacion = (Spinner) findViewById(R.id.ProductoPresentacion);//Encontramos el spinner de la presentación
         ProductoName.setOnItemSelectedListener(new OnItemSelectedListener() {
-
             int count = 0;
             String[] columna = {"presentacion"};
 
@@ -249,7 +246,8 @@ public class MyAndroid extends Activity {
     /**
      * Para actualizar el Spinner de Nombres de productos venia originalmente.
      *
-     * @version 1.0 @autor MaximusPegasus
+     * @version 1.0
+     * @autor MaximusPegasus
      * @see método que es llamado cuando da enter.
      */
     public void actualizarSpinnerProductoVeniaOriginalmente() {
@@ -275,7 +273,8 @@ public class MyAndroid extends Activity {
     /**
      * Para actualizar el Spinner de Nombres de productos no encontrados.
      *
-     * @version 1.0 @autor MaximusPegasus
+     * @version 1.0
+     * @autor MaximusPegasus
      * @see método que es llamado cuando cambia el foco.
      */
     public void actualizarSpinnerProductoNoEncontro() {
@@ -301,7 +300,8 @@ public class MyAndroid extends Activity {
     /**
      * Para actualizar el Spinner de Nombres de Producto.
      *
-     * @version 1.0 @autor MaximusPegasus
+     * @version 1.0
+     * @autor MaximusPegasus
      * @see método addkeylistener cuando presionas enter.
      */
     public void actualizarSpinnerProductoName() {
@@ -327,6 +327,7 @@ public class MyAndroid extends Activity {
 
     /**
      * Sirve para llenar los spinner de las opciones que puede poner el usuario.
+     *
      * @autor MaximusPegasus
      *
      * @version 1.0
@@ -398,7 +399,6 @@ public class MyAndroid extends Activity {
         tableRow5_9.setVisibility(View.GONE);
         tableRow5_10.setVisibility(View.GONE);
         Medicamento_Receta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             public void onCheckedChanged(RadioGroup rg, int checkedId) {
                 for (int i = 0; i < rg.getChildCount(); i++) {
                     if (Medicamento_Receta_Si.getId() == checkedId) {
@@ -433,7 +433,6 @@ public class MyAndroid extends Activity {
         Ayudo_Compra_Si = (RadioButton) findViewById(R.id.Ayudo_Compra_Si);
         Ayudo_Compra_No = (RadioButton) findViewById(R.id.Ayudo_Compra_No);
         Radio_Ayudo_Compra.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             public void onCheckedChanged(RadioGroup rg, int checkedId) {
                 for (int i = 0; i
                         < rg.getChildCount(); i++) {
@@ -477,7 +476,6 @@ public class MyAndroid extends Activity {
         tableRow5_16.setVisibility(View.GONE);
         tableRow5_17.setVisibility(View.GONE);
         Radio_Sustituyo_Medicamento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             public void onCheckedChanged(RadioGroup rg, int checkedId) {
                 for (int i = 0; i
                         < rg.getChildCount(); i++) {
@@ -516,7 +514,6 @@ public class MyAndroid extends Activity {
         tableRow2_5.setVisibility(View.GONE);
         tableRow2_6.setVisibility(View.GONE);
         Medicamento_Encontro_Encuestador.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             public void onCheckedChanged(RadioGroup rg, int checkedId) {
                 for (int i = 0; i < rg.getChildCount(); i++) {
                     if (Radio_Encontro_Medicamento_Encuestador_Si.getId() == checkedId) {
@@ -550,229 +547,487 @@ public class MyAndroid extends Activity {
     private boolean validarForm() {
         int color = 0xA2C6FB;
         boolean respuesta = true;
-        Spinner spinner;
-        EditText editText;
-        TableRow aux = (TableRow) findViewById(R.id.tableRow1_1);
-        RadioGroup Radio_Group = (RadioGroup) findViewById(R.id.Radio_Sexo);
-        int radioBtnChecked = Radio_Group.getCheckedRadioButtonId();
-        //Sexo
-        if (radioBtnChecked < 0) {
+        int auxi;
+        beanEncuesta = new BeanEncuesta();
+        //Validamos el radiobutton de Sexo
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow1_1), (RadioGroup) findViewById(R.id.Radio_Sexo), color, "selecciona el sexo");
+        if (auxi < 0) {
             respuesta = false;
-            Toast.makeText(getBaseContext(), "selecciona el sexo", Toast.LENGTH_SHORT).show();
-            aux.setBackgroundColor(Color.RED);
         } else {
-            RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
-            aux.setBackgroundColor(color);
-            //Toast.makeText(getBaseContext(), "" + rBtn.getText().toString(), Toast.LENGTH_SHORT).show();
+            //para llenar el bean de encuesta con la info del sexo.
+            RadioButton rBtn = (RadioButton) findViewById(auxi);
+            if (rBtn.getText().toString().equals("Hombre")) {//si es hombre
+                beanEncuesta.setSexo("0");
+                Toast.makeText(getBaseContext(), "BeanEncuesta El Sexo es 0 = Hombre", Toast.LENGTH_SHORT).show();
+            } else {//si es mujer
+                beanEncuesta.setSexo("1");
+                Toast.makeText(getBaseContext(), "BeanEncuesta El Sexo es 1 = Mujer", Toast.LENGTH_SHORT).show();
+            }
+            //Se termina el llenado del beanEncuesta para el sexo
         }
-        //Sexo Cierra
-        aux = (TableRow) findViewById(R.id.tableRow1_2);
-        Radio_Group = (RadioGroup) findViewById(R.id.Radio_Edad);
-        radioBtnChecked = Radio_Group.getCheckedRadioButtonId();
-        //Edad
-        if (radioBtnChecked < 0) {
+
+
+        //validamos el radio button de Edad y llenamos el bean
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow1_2), (RadioGroup) findViewById(R.id.Radio_Edad), color, "selecciona la edad");
+        if (auxi < 0) {
             respuesta = false;
-            Toast.makeText(getBaseContext(), "selecciona la edad", Toast.LENGTH_SHORT).show();
-            aux.setBackgroundColor(Color.RED);
         } else {
-            RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
-            aux.setBackgroundColor(color);
+            //para llenar el bean de encuesta con la info de la edad.
+            RadioButton rBtn = (RadioButton) findViewById(auxi);
+            if (rBtn.getText().toString().equals("20-30")) {//si es de 20 a 30
+                beanEncuesta.setEdad("2030");
+                Toast.makeText(getBaseContext(), "BeanEncuesta La edad es 2030", Toast.LENGTH_SHORT).show();
+            } else if (rBtn.getText().toString().equals("31-40")) {//31-40
+                beanEncuesta.setSexo("3040");
+                Toast.makeText(getBaseContext(), "BeanEncuesta La edad es 3040", Toast.LENGTH_SHORT).show();
+            } else if (rBtn.getText().toString().equals("41-50")) {//41-50
+                beanEncuesta.setSexo("4050");
+                Toast.makeText(getBaseContext(), "BeanEncuesta La edad es 4050", Toast.LENGTH_SHORT).show();
+            } else if (rBtn.getText().toString().equals("51-60")) {//51-60
+                beanEncuesta.setSexo("5060");
+                Toast.makeText(getBaseContext(), "BeanEncuesta La edad es 5060", Toast.LENGTH_SHORT).show();
+            } else {
+                beanEncuesta.setSexo("61+");//61++
+                Toast.makeText(getBaseContext(), "BeanEncuesta La edad es 60", Toast.LENGTH_SHORT).show();
+            }
+            //Se termina el llenado del beanEncuesta para la edad
         }
-        //Edad Cierra
 
         //Abre si o no de producto
-        aux = (TableRow) findViewById(R.id.tableRow2_4);
-        Radio_Group = (RadioGroup) findViewById(R.id.Radio_Encontro_Medicamento_Encuestador);
-        radioBtnChecked = Radio_Group.getCheckedRadioButtonId();
-        //
-        if (radioBtnChecked < 0) {
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow2_4), (RadioGroup) findViewById(R.id.Radio_Encontro_Medicamento_Encuestador), color, "selecciona si encontraste el producto");
+        if (auxi < 0) {
             respuesta = false;
-            Toast.makeText(getBaseContext(), "selecciona si encontraste el producto", Toast.LENGTH_SHORT).show();
-            aux.setBackgroundColor(Color.RED);
         } else {
-            aux.setBackgroundColor(color);
-            RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
+            RadioButton rBtn = (RadioButton) findViewById(auxi);
             if (rBtn.getText().toString().equals("Si")) {
                 //Producto
-                aux = (TableRow) findViewById(R.id.tableRow2_1);
-                spinner = (Spinner) findViewById(R.id.ProductoName);
-
-                if (spinner.getSelectedItemId() == AdapterView.INVALID_ROW_ID) {
+                if (validarSpinner((TableRow) findViewById(R.id.tableRow2_1), (Spinner) findViewById(R.id.ProductoName), color, "Verifica el producto", "Seleccione Producto")) {
                     respuesta = false;
-                    aux.setBackgroundColor(Color.RED);
-                    Toast.makeText(getBaseContext(), "Selecciona un producto", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (spinner.getSelectedItem().toString().equals("Seleccione Producto")) {
-                        Toast.makeText(getBaseContext(), "Selecciona un producto", Toast.LENGTH_SHORT).show();
-                        aux.setBackgroundColor(Color.RED);
-                    } else {
-                        Toast.makeText(getBaseContext(), "" + spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-                        aux.setBackgroundColor(color);
-                    }
+                } else {//Presentación
+                    if (validarSpinner((TableRow) findViewById(R.id.tableRow2_1), (Spinner) findViewById(R.id.ProductoPresentacion), color, "Verifica la presentación", "Seleccione Presentación")) {
+                        respuesta = false;
+                    } else {//llenamos el bean de la encuesta 
+                        beanEncuesta.setMedicamento_Adquirio(((Spinner) findViewById(R.id.ProductoName)).getSelectedItem().toString());
+                        beanEncuesta.setPresentacion((((Spinner) findViewById(R.id.ProductoName)).getSelectedItem().toString()));
+                        Toast.makeText(getBaseContext(), "Producto " + ((Spinner) findViewById(R.id.ProductoName)).getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Presentación " + (((Spinner) findViewById(R.id.ProductoName)).getSelectedItem().toString()), Toast.LENGTH_SHORT).show();
+                    }//Terminamos de llenar el bean de la encuesta 
                 }
-                //Producto cierra
-
-                //Presentación
-                aux = (TableRow) findViewById(R.id.tableRow2_1);
-                spinner = (Spinner) findViewById(R.id.ProductoPresentacion);
-
-                if (spinner.getSelectedItemId() == AdapterView.INVALID_ROW_ID) {
-                    respuesta = false;
-                    aux.setBackgroundColor(Color.RED);
-                    Toast.makeText(getBaseContext(), "Selecciona un producto", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (spinner.getSelectedItem().toString().equals("Seleccione Presentación")) {
-                        Toast.makeText(getBaseContext(), "Selecciona Presentación", Toast.LENGTH_SHORT).show();
-                        aux.setBackgroundColor(Color.RED);
-                    } else {
-                        Toast.makeText(getBaseContext(), "" + spinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-                        aux.setBackgroundColor(color);
-                    }
-                }
-                //Presentación cierra
             } else {
                 //Producto 
-                aux = (TableRow) findViewById(R.id.tableRow2_5);
-                editText = (EditText) findViewById(R.id.Medicamento_Adquirio_Name_Provisional_Text);
-                if (editText.getText().toString().equals("")) {
+                if (validarVacioEditText((TableRow) findViewById(R.id.tableRow2_5), (EditText) findViewById(R.id.Medicamento_Adquirio_Name_Provisional_Text), color, "Escribe un producto")) {
                     respuesta = false;
-                    aux.setBackgroundColor(Color.RED);
-                    Toast.makeText(getBaseContext(), "Escribe un producto", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), "" + editText.getText(), Toast.LENGTH_SHORT).show();
-                    aux.setBackgroundColor(color);
-                }
-                //Producto cierra
-
-                //Presentación 
-                aux = (TableRow) findViewById(R.id.tableRow2_6);
-                editText = (EditText) findViewById(R.id.Medicamento_Adquirio_Presentacion_Provisional_Text);
-                if (editText.getText().toString().equals("")) {
+                } else {//llenamos el bean de la encuesta con el producto que puso el encuestador
+                    beanEncuesta.setMedicamento_Adquirio(((EditText) findViewById(R.id.Medicamento_Adquirio_Name_Provisional_Text)).getText().toString());
+                    Toast.makeText(getBaseContext(), "Producto Personal" + ((EditText) findViewById(R.id.Medicamento_Adquirio_Name_Provisional_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+                }//Presentación 
+                if (validarVacioEditText((TableRow) findViewById(R.id.tableRow2_6), (EditText) findViewById(R.id.Medicamento_Adquirio_Presentacion_Provisional_Text), color, "Escribe la presentación")) {
                     respuesta = false;
-                    aux.setBackgroundColor(Color.RED);
-                    Toast.makeText(getBaseContext(), "Escribe la presentación", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), "" + editText.getText(), Toast.LENGTH_SHORT).show();
-                    aux.setBackgroundColor(color);
+                } else {//llenamos el bean de la encuesta
+                    beanEncuesta.setPresentacion(((EditText) findViewById(R.id.Medicamento_Adquirio_Presentacion_Provisional_Text)).getText().toString());
+                    Toast.makeText(getBaseContext(), "Presentación Personal" + ((EditText) findViewById(R.id.Medicamento_Adquirio_Presentacion_Provisional_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
                 }
-                //Presentación cierra
             }
         }
-        //Cierra si o no de presentación y producto
 
 
         //Precio pagado 
-        aux = (TableRow) findViewById(R.id.tableRow2_7);
-        editText = (EditText) findViewById(R.id.Precio_Pagado_Text);
-        if (editText.getText().toString().equals("")) {
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow2_7), (EditText) findViewById(R.id.Precio_Pagado_Text), color, "Verifica el Precio Pagado")) {
             respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Escribe el Precio Pagado", Toast.LENGTH_SHORT).show();
-        } else {
-            try {
-                Double.parseDouble(editText.getText().toString());
-                aux.setBackgroundColor(color);
-            } catch (Exception e) {
-                respuesta = false;
-                aux.setBackgroundColor(Color.RED);
-                Toast.makeText(getBaseContext(), "Verifica el Precio Pagado", Toast.LENGTH_SHORT).show();
-            }
+        } else {//llenamos el bean con el precio pagado
+            beanEncuesta.setPrecio_Pagado(((EditText) findViewById(R.id.Precio_Pagado_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Precio Pagado " + ((EditText) findViewById(R.id.Precio_Pagado_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+        }//Precio pagado 
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow2_8), (EditText) findViewById(R.id.Precio_Caja_Text), color, "Verifica el Precio de Caja")) {
+            respuesta = false;
+        } else {//llenamos el precio con el precio pagado
+            beanEncuesta.setPrecio_Caja(((EditText) findViewById(R.id.Precio_Caja_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Precio Pagado " + ((EditText) findViewById(R.id.Precio_Caja_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+        }//Precio Justo 
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow3_1), (EditText) findViewById(R.id.Precio_Justo_Text), color, "Verifica el Precio Justo")) {
+            respuesta = false;
+        } else {//llenamos el bean con el precio justo que puso
+            beanEncuesta.setPrecio_Justo(((EditText) findViewById(R.id.Precio_Justo_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Precio Justo " + ((EditText) findViewById(R.id.Precio_Justo_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+        }//Dudar Calidad
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow3_3), (EditText) findViewById(R.id.Barato_Dudar_Calidad_Text), color, "Verifica el Dudar Calidad")) {
+            respuesta = false;
+        } else {//llenamos el bean con el precio que duda la calidad
+            beanEncuesta.setPrecio_Barato_Duda_Calidad(((EditText) findViewById(R.id.Barato_Dudar_Calidad_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Dudar Calidad " + ((EditText) findViewById(R.id.Barato_Dudar_Calidad_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+        }//Caro Comprar
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow3_5), (EditText) findViewById(R.id.Caro_Aun_Compraria_Text), color, "Verifica el Caro Comprar")) {
+            respuesta = false;
+        } else {//llenamos el bean con el precio que puso que es caro pero aun lo compraria
+            beanEncuesta.setPrecio_Caro_Compraria(((EditText) findViewById(R.id.Caro_Aun_Compraria_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Precio Caro Compraria " + ((EditText) findViewById(R.id.Caro_Aun_Compraria_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+        }//Caro NO Comprar
+        if (validarPrecios((TableRow) findViewById(R.id.tableRow3_7), (EditText) findViewById(R.id.Caro_No_Compraria_Text), color, "Verifica el Caro NO Comprar")) {
+            respuesta = false;
+        } else {//llenamos el precio con el precio que es tan caro que ya no lo compraria
+            beanEncuesta.setPrecio_Caro_No_Compraria(((EditText) findViewById(R.id.Caro_No_Compraria_Text)).getText().toString());
+            Toast.makeText(getBaseContext(), "Precio Caro No Compraria " + ((EditText) findViewById(R.id.Caro_No_Compraria_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
         }
-        //Precio Pagado cierra
 
-        //Precio pagado 
-        aux = (TableRow) findViewById(R.id.tableRow2_8);
-        editText = (EditText) findViewById(R.id.Precio_Caja_Text);
-        try {
-            Double.parseDouble(editText.getText().toString());
-            aux.setBackgroundColor(color);
-        } catch (Exception e) {
+        //Precio30
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_1), (Spinner) findViewById(R.id.Precio30pcion), color, "Seleccione opción para precio +%30", "Seleccione una opción")) {
             respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Verifica el Precio de Caja", Toast.LENGTH_SHORT).show();
-        }
-        //Precio Pagado cierra
-        
-        //Precio Justo 
-        aux = (TableRow) findViewById(R.id.tableRow3_1);
-        editText = (EditText) findViewById(R.id.Precio_Justo_Text);
-        if (editText.getText().toString().equals("")) {
+        } else {//llenamos el bean con la opcion y el precio de 30%
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio30_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio30pcion)));
+            Toast.makeText(getBaseContext(), "Precio +30% " + ((TextView) findViewById(R.id.Precio30_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion +30% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio30pcion)), Toast.LENGTH_SHORT).show();
+        }//Precio20
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_3), (Spinner) findViewById(R.id.Precio20pcion), color, "Seleccione opción para precio +%20", "Seleccione una opción")) {
             respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Escribe el Precio Justo", Toast.LENGTH_SHORT).show();
         } else {
-            try {
-                Double.parseDouble(editText.getText().toString());
-                aux.setBackgroundColor(color);
-            } catch (Exception e) {
-                respuesta = false;
-                aux.setBackgroundColor(Color.RED);
-                Toast.makeText(getBaseContext(), "Verifica el Precio Justo", Toast.LENGTH_SHORT).show();
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio20_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio20pcion)));
+            Toast.makeText(getBaseContext(), "Precio +20% " + ((TextView) findViewById(R.id.Precio20_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion +20% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio20pcion)), Toast.LENGTH_SHORT).show();
+        }//Precio10
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_5), (Spinner) findViewById(R.id.Precio10pcion), color, "Seleccione opción para precio +%10", "Seleccione una opción")) {
+            respuesta = false;
+        } else {
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio10_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio10pcion)));
+            Toast.makeText(getBaseContext(), "Precio +10% " + ((TextView) findViewById(R.id.Precio10_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion +10% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio10pcion)), Toast.LENGTH_SHORT).show();
+        }//Precio90
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_7), (Spinner) findViewById(R.id.Precio90pcion), color, "Seleccione opción para precio -%10", "Seleccione una opción")) {
+            respuesta = false;
+        } else {
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio90_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio90pcion)));
+            Toast.makeText(getBaseContext(), "Precio 90% " + ((TextView) findViewById(R.id.Precio90_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion 90% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio90pcion)), Toast.LENGTH_SHORT).show();
+        }//Precio80
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_9), (Spinner) findViewById(R.id.Precio80pcion), color, "Seleccione opción para precio -%20", "Seleccione una opción")) {
+            respuesta = false;
+        } else {
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio80_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio80pcion)));
+            Toast.makeText(getBaseContext(), "Precio 80% " + ((TextView) findViewById(R.id.Precio80_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion 80% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio80pcion)), Toast.LENGTH_SHORT).show();
+        }//Precio70
+        if (validarSpinner((TableRow) findViewById(R.id.tableRow4_11), (Spinner) findViewById(R.id.Precio70pcion), color, "Seleccione opción para precio -%30", "Seleccione una opción")) {
+            respuesta = false;
+        } else {
+            beanEncuesta.setPrecio30(((TextView) findViewById(R.id.Precio70_Text)).getText().toString());
+            beanEncuesta.setPrecio30_Opcion("" + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio70pcion)));
+            Toast.makeText(getBaseContext(), "Precio 70% " + ((TextView) findViewById(R.id.Precio70_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Opcion 70% " + spinnerOpcionNumber((Spinner) findViewById(R.id.Precio70pcion)), Toast.LENGTH_SHORT).show();
+        }
+
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_1), (RadioGroup) findViewById(R.id.Radio_Medicamento_Receta), color, "Verifique Medicamento con receta");
+        if (auxi < 0) {
+            respuesta = false;
+        } else {
+            RadioButton rBtn = (RadioButton) findViewById(auxi);
+            if (rBtn.getText().toString().equals("Si")) {//Si selecciono que SI ¿Compró el médicamento con receta?
+                //validamos que haya introducido un número valido
+                if (validarPrecios((TableRow) findViewById(R.id.tableRow5_5), (EditText) findViewById(R.id.Ultima_Compra_Text), color, "Verifique Ultima Compra")) {
+                    respuesta = false;
+                } else {//validamos si fue su ultima compra
+                    auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_5), (RadioGroup) findViewById(R.id.Ultima_Compra), color, "Verifique Ultima Compra");
+                    if (auxi < 0) {
+                        respuesta = false;
+                    } else {//Si esta bien su ultima compra verificamos la ultima visita a su medico que sea un number
+                        if (validarPrecios((TableRow) findViewById(R.id.tableRow5_8), (EditText) findViewById(R.id.Ultima_Visita_Text), color, "Verifique Visita Medico")) {
+                            respuesta = false;
+                        } else {//verificamos que haya seleccionado una unidad
+                            auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_8), (RadioGroup) findViewById(R.id.Ultima_Visita), color, "Verifique Visita Medico");
+                            if (auxi < 0) {
+                                respuesta = false;
+                            } else {//llenamos el bean con la información que acabamos de obtener
+                                beanEncuesta.setMedicamento_Con_Receta("1");
+                                beanEncuesta.setUltima_Compra(((EditText) findViewById(R.id.Ultima_Compra_Text)).getText().toString());
+                                beanEncuesta.setUltima_Compra_Unidad("" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Compra)));
+                                beanEncuesta.setUltima_Visita_Medico(((EditText) findViewById(R.id.Ultima_Visita_Text)).getText().toString());
+                                beanEncuesta.setUltima_Visita_Medico_Unidad("" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Visita)));
+                                Toast.makeText(getBaseContext(), "Medicamento con receta 1", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), ((EditText) findViewById(R.id.Ultima_Compra_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Compra)), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), ((EditText) findViewById(R.id.Ultima_Visita_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Visita)), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                }
+            } else {//Si selecciono que NO ¿Compró el médicamento con receta?
+                //validamos el radiobutton de algún medico le ayudo con su compra
+                auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_3), (RadioGroup) findViewById(R.id.Radio_Ayudo_Compra), color, "Verifique Medico Ayudo Compra");
+                if (auxi < 0) {
+                    respuesta = false;
+                } else {//Se valida el radiobutton si de algún medico le ayudo con su compra
+                    rBtn = (RadioButton) findViewById(auxi);
+                    if (rBtn.getText().toString().equals("Si")) {//Si selecciono que SI recibio ayuda de alguien
+                        //validamos que haya introducido un número valido
+                        if (validarPrecios((TableRow) findViewById(R.id.tableRow5_5), (EditText) findViewById(R.id.Ultima_Compra_Text), color, "Verifique Ultima Compra")) {
+                            respuesta = false;
+                        } else {//validamos si fue su ultima compra
+                            auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_5), (RadioGroup) findViewById(R.id.Ultima_Compra), color, "Verifique Ultima Compra");
+                            if (auxi < 0) {
+                                respuesta = false;
+                            } else {//Si esta bien su ultima compra verificamos la ultima visita a su medico que sea un number
+                                if (validarPrecios((TableRow) findViewById(R.id.tableRow5_8), (EditText) findViewById(R.id.Ultima_Visita_Text), color, "Verifique Visita Medico")) {
+                                    respuesta = false;
+                                } else {//verificamos que haya seleccionado una unidad
+                                    auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_8), (RadioGroup) findViewById(R.id.Ultima_Compra), color, "Verifique Visita Medico");
+                                    if (auxi < 0) {
+                                        respuesta = false;
+                                    } else {//llenamos el bean si todo fue bien
+                                        beanEncuesta.setMedicamento_Con_Receta("0");
+                                        beanEncuesta.setAyudo("1");
+                                        beanEncuesta.setUltima_Compra(((EditText) findViewById(R.id.Ultima_Compra_Text)).getText().toString());
+                                        beanEncuesta.setUltima_Compra_Unidad("" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Compra)));
+                                        beanEncuesta.setUltima_Visita_Medico(((EditText) findViewById(R.id.Ultima_Visita_Text)).getText().toString());
+                                        beanEncuesta.setUltima_Visita_Medico_Unidad("" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Visita)));
+                                        Toast.makeText(getBaseContext(), "Medicamento con receta 0", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), "Recibi Ayuda 1", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), ((EditText) findViewById(R.id.Ultima_Compra_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), "" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Compra)), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), ((EditText) findViewById(R.id.Ultima_Visita_Text)).getText().toString(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), "" + radioUnidadTiempo((RadioGroup) findViewById(R.id.Ultima_Visita)), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                    } else {//selecciono que no recibio ayuda de algún médico
+                        beanEncuesta.setMedicamento_Con_Receta("0");//llenamos el bean
+                        beanEncuesta.setAyudo("0");//llenamos el bean
+                        Toast.makeText(getBaseContext(), "Medicamento con receta 0", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Recibio ayuda 0", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         }
-        //Precio Justo cierra
         
-        //Dudar Calidad
-        aux = (TableRow) findViewById(R.id.tableRow3_3);
-        editText = (EditText) findViewById(R.id.Barato_Dudar_Calidad_Text);
-        if (editText.getText().toString().equals("")) {
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_11), (RadioGroup) findViewById(R.id.Radio_Sustituyo_Medicamento), color, "Verifica Sustituyo medicamento");
+        if (auxi < 0) {
             respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Escribe el Dudar Calidad", Toast.LENGTH_SHORT).show();
         } else {
-            try {
-                Double.parseDouble(editText.getText().toString());
-                aux.setBackgroundColor(color);
-            } catch (Exception e) {
-                respuesta = false;
-                aux.setBackgroundColor(Color.RED);
-                Toast.makeText(getBaseContext(), "Verifica el Dudar Calidad", Toast.LENGTH_SHORT).show();
+            RadioButton rBtn = (RadioButton) findViewById(auxi);
+            if (rBtn.getText().toString().equals("Si")) {
+                auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow5_13), (RadioGroup) findViewById(R.id.Radio_Quien_Sustituyo), color, "Verifica Quien Sustituyo");
+                if (auxi < 0) {
+                    respuesta = false;
+                } else {
+                    if (validarSpinner((TableRow) findViewById(R.id.tableRow5_13), (Spinner) findViewById(R.id.Venia_Originalmente_Spinner), color, "Selecciona producto que venia originalmente", "Seleccione Producto")) {
+                        respuesta = false;
+                    }else{//llenamos el bean con la info
+                        beanEncuesta.setSustituyo("1");
+                        beanEncuesta.setQuien_Genero_Susticion(""+numero_Quien_Sustituyo((RadioGroup)findViewById(R.id.Radio_Quien_Sustituyo)));
+                        beanEncuesta.setMedicamento_Venia_Ori(""+((Spinner) findViewById(R.id.Venia_Originalmente_Spinner)).getSelectedItem());
+                        Toast.makeText(getBaseContext(), "Sustituyo 1", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Quien sustituyo "+numero_Quien_Sustituyo((RadioGroup)findViewById(R.id.Radio_Quien_Sustituyo)), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Venia originalmente "+((Spinner) findViewById(R.id.Venia_Originalmente_Spinner)).getSelectedItem(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }else{//Si no sustituyo el medicamento
+                beanEncuesta.setSustituyo("0");
+                Toast.makeText(getBaseContext(), "Sustituyo 0", Toast.LENGTH_SHORT).show();
             }
         }
-        //Dudar Calidad cierra
-        
-        //Caro Comprar
-        aux = (TableRow) findViewById(R.id.tableRow3_5);
-        editText = (EditText) findViewById(R.id.Barato_Dudar_Calidad_Text);
-        if (editText.getText().toString().equals("")) {
+
+        auxi = validartRadioButton((TableRow) findViewById(R.id.tableRow6_1), (RadioGroup) findViewById(R.id.Medicamento_Alternativa), color, "Verifique si usa alternativa");
+        if (auxi < 0) {
             respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Escribe el Caro Comprar", Toast.LENGTH_SHORT).show();
-        } else {
-            try {
-                Double.parseDouble(editText.getText().toString());
-                aux.setBackgroundColor(color);
-            } catch (Exception e) {
-                respuesta = false;
-                aux.setBackgroundColor(Color.RED);
-                Toast.makeText(getBaseContext(), "Verifica el Caro Comprar", Toast.LENGTH_SHORT).show();
+        }else{
+            beanEncuesta.setAlternativa(""+numero_Alternativa((RadioGroup) findViewById(R.id.Medicamento_Alternativa)));
+            Toast.makeText(getBaseContext(), "Alternativa "+numero_Alternativa((RadioGroup) findViewById(R.id.Medicamento_Alternativa)), Toast.LENGTH_SHORT).show();
+        }
+        
+        if(!(((Spinner) findViewById(R.id.No_Encontro_Spinner)).getSelectedItemId() == AdapterView.INVALID_ROW_ID)){
+            if(!(((Spinner) findViewById(R.id.No_Encontro_Spinner)).getSelectedItem().toString().equals("Seleccione Producto"))){
+                beanEncuesta.setMedicamento_No_Encontro(((Spinner) findViewById(R.id.No_Encontro_Spinner)).getSelectedItem().toString());
+                Toast.makeText(getBaseContext(), "No encontro"+((Spinner) findViewById(R.id.No_Encontro_Spinner)).getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
         }
-        //Caro Comprar cierra
-        
-        //Caro NO Comprar
-        aux = (TableRow) findViewById(R.id.tableRow3_7);
-        editText = (EditText) findViewById(R.id.Caro_No_Compraria_Text);
-        if (editText.getText().toString().equals("")) {
-            respuesta = false;
-            aux.setBackgroundColor(Color.RED);
-            Toast.makeText(getBaseContext(), "Escribe el Caro NO Comprar", Toast.LENGTH_SHORT).show();
-        } else {
-            try {
-                Double.parseDouble(editText.getText().toString());
-                aux.setBackgroundColor(color);
-            } catch (Exception e) {
-                respuesta = false;
-                aux.setBackgroundColor(Color.RED);
-                Toast.makeText(getBaseContext(), "Verifica el Caro NO Comprar", Toast.LENGTH_SHORT).show();
-            }
-        }
-        //Caro NO Comprar cierra
-        
         return respuesta;
     }
     
+    /**
+     * Saber el numero de la alternativa
+     * @param radio el radio que contiene las opciones de las alternativas
+     * @return  el número a la que corresponde esa opción
+     */
+    public int numero_Alternativa(RadioGroup radio){
+        int radioBtnChecked = radio.getCheckedRadioButtonId();
+        RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
+        if (rBtn.getText().toString().equals("Siempre uso alternativa")) {
+            return 0;
+        }else if (rBtn.getText().toString().equals("Uso mas la alternativa que el original")) {
+            return 0;
+        }else if (rBtn.getText().toString().equals("Uso mas el original que la alternativa")) {
+            return 0;
+        }else if (rBtn.getText().toString().equals("Siempre uso el original")) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
     
+    /**
+     * Numero de quien sustituyo
+     * @param radio es el que contiene dependiente o el mismo
+     * @return  regresa el numero de quien sustituyo para ponerlo en el bean y ahce la consulta
+     */
+    public int numero_Quien_Sustituyo(RadioGroup radio){
+    int radioBtnChecked = radio.getCheckedRadioButtonId();
+        RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
+        if (rBtn.getText().toString().equals("Usted")) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    /**
+     * Saber el número de la unidad a la que corresponde en el tiempo
+     *
+     * @param radio el radiogroup que contiene los radiobutton que serán
+     * analizados
+     * @return regresa el número de la unidad para poder ser introducido
+     */
+    public int radioUnidadTiempo(RadioGroup radio) {
+        int radioBtnChecked = radio.getCheckedRadioButtonId();
+        RadioButton rBtn = (RadioButton) findViewById(radioBtnChecked);
+        if (rBtn.getText().toString().equals("D")) {
+            return 0;
+        } else if (rBtn.getText().toString().equals("S")) {
+            return 1;
+        } else if (rBtn.getText().toString().equals("M")) {
+            return 2;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * Compara la cadena y le asigna el número correspondiente segun la
+     * respuesta del usuario
+     *
+     * @param spinner es el objeto que recibe y compara con las opciones de la
+     * cadena
+     * @return regresa la el numero con la respuesta para que esta sea añadida
+     */
+    public int spinnerOpcionNumber(Spinner spinner) {
+        if (spinner.getSelectedItem().equals("Definitivamente SI lo usaría")) {
+            return 5;
+        } else if (spinner.getSelectedItem().equals("Probablemente SI lo usaría")) {
+            return 4;
+        } else if (spinner.getSelectedItem().equals("NO SÉ si lo usaría")) {
+            return 3;
+        } else if (spinner.getSelectedItem().equals("Probablemente NO lo usaría")) {
+            return 2;
+        } else if (spinner.getSelectedItem().equals("Definitivamente NO lo usaría")) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Sirve para validar los spinner
+     *
+     * @param aux la tabla que será coloreada
+     * @param spinner el spinner que se va a validar
+     * @param color el color que se pone si es correcto
+     * @param error el error que manda
+     * @param celda0 la cel numero 0 del spinner sino selecciona nada
+     * @return true si es que falla y false si no es asi
+     */
+    private boolean validarSpinner(TableRow aux, Spinner spinner, int color, String error, String celda0) {
+        boolean respuesta = false;
+        if (spinner.getSelectedItemId() == AdapterView.INVALID_ROW_ID) {
+            respuesta = true;
+            aux.setBackgroundColor(Color.RED);
+            Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+        } else {
+            if (spinner.getSelectedItem().toString().equals(celda0)) {
+                respuesta = true;
+                Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+                aux.setBackgroundColor(Color.RED);
+            } else {
+                aux.setBackgroundColor(color);
+            }
+        }
+        return respuesta;
+    }
+
+    /**
+     * Sirve para validar que no este vacio el editText
+     *
+     * @param aux el table row que se pondra en rojo o azul dependiendo si hay
+     * error
+     * @param editText el edittext que se esta validando
+     * @param color el color que se pone si todo esta bien
+     * @param error el mensaje de error que despliega si hay error
+     * @return el numero del item y si es menor a cero hay algun error
+     */
+    private int validartRadioButton(TableRow aux, RadioGroup Radio_Group, int color, String error) {
+        int radioBtnChecked = Radio_Group.getCheckedRadioButtonId();
+        //Sexo
+        if (radioBtnChecked < 0) {
+            Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+            aux.setBackgroundColor(Color.RED);
+        } else {
+            aux.setBackgroundColor(color);
+        }
+        return radioBtnChecked;
+    }
+
+    /**
+     * Sirve para validar que no este vacio el editText
+     *
+     * @param aux el table row que se pondra en rojo o azul dependiendo si hay
+     * error
+     * @param editText el edittext que se esta validando
+     * @param color el color que se pone si todo esta bien
+     * @param error el mensaje de error que despliega si hay error
+     * @return true si es que falla y false si no es asi
+     */
+    private boolean validarVacioEditText(TableRow aux, EditText editText, int color, String error) {
+        boolean respuesta = false;
+        if (editText.getText().toString().equals("")) {
+            respuesta = true;
+            aux.setBackgroundColor(Color.RED);
+            Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+        } else {
+            aux.setBackgroundColor(color);
+        }
+        return respuesta;
+    }
+
+    /**
+     * Sirve para validar que sean números
+     *
+     * @param aux el table row que se pondra en rojo o azul dependiendo si hay
+     * error.
+     * @param editText el edittext que se esta validando
+     * @param color el color que se pone si todo esta bien
+     * @param error el mensaje de error que despliega si hay error
+     * @return true si es que falla y false si no es asi
+     */
+    private boolean validarPrecios(TableRow aux, EditText editText, int color, String error) {
+        boolean respuesta = false;
+        if (editText.getText().toString().equals("")) {
+            respuesta = true;
+            aux.setBackgroundColor(Color.RED);
+            Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                Double.parseDouble(editText.getText().toString());
+                aux.setBackgroundColor(color);
+            } catch (Exception e) {
+                respuesta = true;
+                aux.setBackgroundColor(Color.RED);
+                Toast.makeText(getBaseContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        }
+        return respuesta;
+    }
 
     /**
      * Boton para poner en acción las validaciones y enviar la encuesta.
@@ -780,7 +1035,6 @@ public class MyAndroid extends Activity {
     private void buttonValidar() {
         Button Boton_Enviar = (Button) findViewById(R.id.Boton_Enviar);
         Boton_Enviar.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 if (validarForm()) {
                 } else {

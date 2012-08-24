@@ -42,7 +42,9 @@ public class Login extends Activity{
                 myDbHelper.close();
             }
     }
-
+    /**
+     * Listener Para el boton de inicio de Sesion.
+     */
     private void iniciarSesion() {                            
         Button btn = (Button)findViewById(R.id.btIng);
         btn.setOnClickListener(new OnClickListener(){
@@ -58,7 +60,7 @@ public class Login extends Activity{
                         password = myDbHelper.getColumna("encuestador", columna, "username like '"+tv.getText()+"'");                        
                         usu.setUsername(tv.getText().toString());
                         usu.setPassword(et.getText().toString());
-                        usu.setIdusu(password.get(0).toString());
+                        usu.setIdusu(password.get(0).toString());                        
                         Intent intent = new Intent(context, ActivityMagg.class);
                         startActivity(intent);
                     }else{

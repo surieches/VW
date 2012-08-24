@@ -85,14 +85,20 @@ public class Sincronizacion extends Activity {
                 String[] aux = (String[])farmacias.get(i);
                 fb.setId(Integer.parseInt(aux[0]));
                 fb.setFarmacia(aux[6]);
+                fb.setColonia(aux[9]);
                 fb.setTipoCadena(aux[7]);
                 fb.setDireccion(aux[8]);
-                fb.setColonia(aux[9]);
+                fb.setCP(aux[10]);
+                fb.setMunicipio(aux[12]);
+                fb.setCiudad(aux[13]);
+                fb.setTelefono(aux[16]);
+                fb.setAgeb(aux[11]);
+                fb.setPendiente(true);
                 json = gson.toJson(fb);
                 // Add your data
                 nameValuePairs.add(new BasicNameValuePair("farmacia"+i, json));                
-            }            
-            //nameValuePairs.add(new BasicNameValuePair("bean", json));                
+            }
+            nameValuePairs.add(new BasicNameValuePair("bean", ""));                
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs)); 
             ResponseHandler<String> responseHandler=new BasicResponseHandler();
             // Execute HTTP Post Request               

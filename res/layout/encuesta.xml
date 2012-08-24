@@ -522,7 +522,7 @@
                     </TableRow> 
                     <!-- TextView de 80-->
                     <TableRow
-                        android:id="@+id/tableRow_9"
+                        android:id="@+id/tableRow4_9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dip" >
