@@ -63,6 +63,12 @@ public class ActivityMagg extends Activity{
             }
     }
     /**
+     * Evita el regreso de actividad.
+     */
+    @Override
+    public void onBackPressed(){
+    }
+    /**
      * Obtiene las farmacias de la BD. Las pone disponible para el AutoComplete.
      */
     private void cargarFarmacias(){

@@ -8,16 +8,7 @@ package com.androidhive.androidsqlite;
  */
 
 public class BeanEncuesta {
-    private String Fecha = "";
     private String Encuestador = "";
-    private String Hora = "";
-    private String Farmacia = "";
-    private String Colonia = "";
-    private String Tipo1 = "";
-    private String Tipo2 = "";
-    private String CP = "";
-    private String Ageb = "";
-    private String Ciudad = "";
     private String Sexo = "";
     private String Edad = "";
     private String Medicamento_Adquirio = "";
@@ -50,13 +41,147 @@ public class BeanEncuesta {
     private String Alternativa = "";
     private String Otro_Medicamento = "";
     private String Medicamento_No_Encontro = "";
-    private String Mensaje;
     private String Presentacion = "";
     private String Ayudo = "";
-    private String ID_General = "";
     
-    public void setAgeb(String Ageb) {
-        this.Ageb = Ageb;
+    public String getEncuestador() {
+        return Encuestador;
+    }
+
+    public String getSexo() {
+        return Sexo;
+    }
+
+    public String getEdad() {
+        return Edad;
+    }
+
+    public String getMedicamento_Adquirio() {
+        return Medicamento_Adquirio;
+    }
+
+    public String getPrecio_Pagado() {
+        return Precio_Pagado;
+    }
+
+    public String getPrecio_Caja() {
+        return Precio_Caja;
+    }
+
+    public String getPrecio_Justo() {
+        return Precio_Justo;
+    }
+
+    public String getPrecio_Barato_Duda_Calidad() {
+        return Precio_Barato_Duda_Calidad;
+    }
+
+    public String getPrecio_Caro_Compraria() {
+        return Precio_Caro_Compraria;
+    }
+
+    public String getPrecio_Caro_No_Compraria() {
+        return Precio_Caro_No_Compraria;
+    }
+
+    public String getPrecio30() {
+        return Precio30;
+    }
+
+    public String getPrecio20() {
+        return Precio20;
+    }
+
+    public String getPrecio10() {
+        return Precio10;
+    }
+
+    public String getPrecio90() {
+        return Precio90;
+    }
+
+    public String getPrecio80() {
+        return Precio80;
+    }
+
+    public String getPrecio70() {
+        return Precio70;
+    }
+
+    public String getPrecio30_Opcion() {
+        return Precio30_Opcion;
+    }
+
+    public String getPrecio20_Opcion() {
+        return Precio20_Opcion;
+    }
+
+    public String getPrecio10_Opcion() {
+        return Precio10_Opcion;
+    }
+
+    public String getPrecio90_Opcion() {
+        return Precio90_Opcion;
+    }
+
+    public String getPrecio80_Opcion() {
+        return Precio80_Opcion;
+    }
+
+    public String getPrecio70_Opcion() {
+        return Precio70_Opcion;
+    }
+
+    public String getMedicamento_Con_Receta() {
+        return Medicamento_Con_Receta;
+    }
+
+    public String getUltima_Compra() {
+        return Ultima_Compra;
+    }
+
+    public String getUltima_Compra_Unidad() {
+        return Ultima_Compra_Unidad;
+    }
+
+    public String getUltima_Visita_Medico() {
+        return Ultima_Visita_Medico;
+    }
+
+    public String getUltima_Visita_Medico_Unidad() {
+        return Ultima_Visita_Medico_Unidad;
+    }
+
+    public String getSustituyo() {
+        return Sustituyo;
+    }
+
+    public String getQuien_Genero_Susticion() {
+        return Quien_Genero_Susticion;
+    }
+
+    public String getMedicamento_Venia_Ori() {
+        return Medicamento_Venia_Ori;
+    }
+
+    public String getAlternativa() {
+        return Alternativa;
+    }
+
+    public String getOtro_Medicamento() {
+        return Otro_Medicamento;
+    }
+
+    public String getMedicamento_No_Encontro() {
+        return Medicamento_No_Encontro;
+    }
+
+    public String getPresentacion() {
+        return Presentacion;
+    }
+
+    public String getAyudo() {
+        return Ayudo;
     }
 
     public void setAlternativa(String Alternativa) {
@@ -67,17 +192,6 @@ public class BeanEncuesta {
         this.Ayudo = Ayudo;
     }
 
-    public void setCP(String CP) {
-        this.CP = CP;
-    }
-
-    public void setCiudad(String Ciudad) {
-        this.Ciudad = Ciudad;
-    }
-
-    public void setColonia(String Colonia) {
-        this.Colonia = Colonia;
-    }
 
     public void setEdad(String Edad) {
         this.Edad = Edad;
@@ -87,21 +201,6 @@ public class BeanEncuesta {
         this.Encuestador = Encuestador;
     }
 
-    public void setFarmacia(String Farmacia) {
-        this.Farmacia = Farmacia;
-    }
-
-    public void setFecha(String Fecha) {
-        this.Fecha = Fecha;
-    }
-
-    public void setHora(String Hora) {
-        this.Hora = Hora;
-    }
-
-    public void setID_General(String ID_General) {
-        this.ID_General = ID_General;
-    }
 
     public void setMedicamento_Adquirio(String Medicamento_Adquirio) {
         this.Medicamento_Adquirio = Medicamento_Adquirio;
@@ -117,10 +216,6 @@ public class BeanEncuesta {
 
     public void setMedicamento_Venia_Ori(String Medicamento_Venia_Ori) {
         this.Medicamento_Venia_Ori = Medicamento_Venia_Ori;
-    }
-
-    public void setMensaje(String Mensaje) {
-        this.Mensaje = Mensaje;
     }
 
     public void setOtro_Medicamento(String Otro_Medicamento) {
@@ -215,13 +310,6 @@ public class BeanEncuesta {
         this.Sustituyo = Sustituyo;
     }
 
-    public void setTipo1(String Tipo1) {
-        this.Tipo1 = Tipo1;
-    }
-
-    public void setTipo2(String Tipo2) {
-        this.Tipo2 = Tipo2;
-    }
 
     public void setUltima_Compra(String Ultima_Compra) {
         this.Ultima_Compra = Ultima_Compra;

@@ -52,6 +52,15 @@ public class BeanEncuesta {
     private String Presentacion = "";
     private String Ayudo = "";
     private String ID_General = "";
+    private String pendiente = "";
+
+    public String isPendiente() {
+        return pendiente;
+    }
+
+    public void setPendiente(String pendiente) {
+        this.pendiente = pendiente;
+    }
     
     public void setAgeb(String Ageb) {
         this.Ageb = Ageb;
