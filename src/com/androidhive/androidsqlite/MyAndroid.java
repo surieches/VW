@@ -2,7 +2,9 @@ package com.androidhive.androidsqlite;
 
 import Beans.FarmaciaBean;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.Color;
@@ -1039,56 +1041,54 @@ public class MyAndroid extends Activity {
 
     //para que no se pueda regresar
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
-    
+
     /**
      * Se crea el mení graficamente
+     *
      * @param menu el menú que se pondrá
      */
-    private void CreateMenu(Menu menu)
-    {
+    private void CreateMenu(Menu menu) {
         menu.setQwertyMode(true);
         MenuItem mnu1 = menu.add(0, 0, 0, "Misma Encuesta");
         {
-            mnu1.setAlphabeticShortcut('m');     
+            mnu1.setAlphabeticShortcut('m');
         }
         MenuItem mnu2 = menu.add(0, 1, 1, "Salir");
         {
-            mnu2.setAlphabeticShortcut('s');                
+            mnu2.setAlphabeticShortcut('s');
         }
     }
-    
-    private boolean MenuChoice(MenuItem item)
-    {        
+
+    private boolean MenuChoice(MenuItem item) {
         switch (item.getItemId()) {
-        case 0:
-            Toast.makeText(this, "Misma Encuesta", 
-                Toast.LENGTH_LONG).show();
-            return true;
-        case 1:
-            Toast.makeText(this, "Salir", Toast.LENGTH_LONG).show();
-            final Intent intent = new Intent(getBaseContext(), Login.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(intent);
-            return true;          
+            case 0:
+                Toast.makeText(this, "Misma Encuesta",
+                        Toast.LENGTH_LONG).show();
+                return true;
+            case 1:
+                Toast.makeText(this, "Salir", Toast.LENGTH_LONG).show();
+                final Intent intent = new Intent(getBaseContext(), Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+                return true;
         }
         return false;
-    }    
-    
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         CreateMenu(menu);
         return true;
     }
-    
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {    
-         return MenuChoice(item);    
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return MenuChoice(item);
     }
-    
+
     /**
      * Boton para poner en acción las validaciones y enviar la encuesta.
      */
@@ -1108,7 +1108,7 @@ public class MyAndroid extends Activity {
                     //llenar la tabla de general
                     if (!canasta) {
                         cols = "ID_Encuestador,Fecha,Hora,Farmacia,Colonia,Tipo_Farmacia,Tipo_Cadena,CP,Ageb,Ciudad,Sexo,Edad";
-                        vals =  idusu + " , '" + fecha.get(java.util.Calendar.YEAR) + "-" + (fecha.get(java.util.Calendar.MONTH) + 1) + "-" + fecha.get(java.util.Calendar.DATE) + "', '"
+                        vals = idusu + " , '" + fecha.get(java.util.Calendar.YEAR) + "-" + (fecha.get(java.util.Calendar.MONTH) + 1) + "-" + fecha.get(java.util.Calendar.DATE) + "', '"
                                 + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE) + ":" + fecha.get(Calendar.SECOND) + "' , '" + fb.getFarmacia() + "' , '" + fb.getColonia() + "' , '"
                                 + fb.getTipo2() + "', '" + fb.getTipoCadena() + "' , '" + fb.getCP() + "', '" + fb.getAgeb() + "', '" + fb.getCiudad() + "', " + beanEncuesta.getSexo() + ", " + beanEncuesta.getEdad();
                         if (fb.isPendiente()) {
@@ -1122,7 +1122,7 @@ public class MyAndroid extends Activity {
 
                     //se llena el medicamento
                     cols = "ID_General,Nombre,Presentacion,Precio_Pagado,Precio_Caja";
-                    vals =  ID_General + ", '" + beanEncuesta.getMedicamento_Adquirio() + "', '" + beanEncuesta.getPresentacion() + "', " + beanEncuesta.getPrecio_Pagado() + ", " + beanEncuesta.getPrecio_Caja();
+                    vals = ID_General + ", '" + beanEncuesta.getMedicamento_Adquirio() + "', '" + beanEncuesta.getPresentacion() + "', " + beanEncuesta.getPrecio_Pagado() + ", " + beanEncuesta.getPrecio_Caja();
                     d = myDbHelper.insertar("medicamento", cols, vals);
                     ID_Medicamento = Integer.parseInt("" + d);
 
@@ -1149,7 +1149,7 @@ public class MyAndroid extends Activity {
 
                     //llenamos la tabla de opinion
                     cols = "ID_Medicamento,Con_Receta";
-                    vals = ID_Medicamento + ", " + beanEncuesta.getMedicamento_Con_Receta() ;
+                    vals = ID_Medicamento + ", " + beanEncuesta.getMedicamento_Con_Receta();
                     if (beanEncuesta.getMedicamento_Con_Receta().equals("0")) {//sino compro con receta
                         cols += ",AyudoCompra";
                         vals += ", " + beanEncuesta.getAyudo();
@@ -1185,18 +1185,52 @@ public class MyAndroid extends Activity {
                             cols += ",Medicamento_No_Encontro";
                             vals += ", '" + beanEncuesta.getMedicamento_No_Encontro() + "'";
                         }
-                        myDbHelper.insertar("tabla_opinion", cols, vals);  
-                        EncuestaCreada();
+                        myDbHelper.insertar("tabla_opinion", cols, vals);
                     }
-                    Toast.makeText(getBaseContext(), "Encuesta registrada exitosamente.", Toast.LENGTH_SHORT).show();                    
+                    Toast.makeText(getBaseContext(), "Encuesta registrada exitosamente.", Toast.LENGTH_SHORT).show();
+                    ponerEnBlanco();
+                    EncuestaCreada();
                 } else {
-                    Toast.makeText(getBaseContext(), "Revise la encuesta.", Toast.LENGTH_SHORT).show();                    
+                    Toast.makeText(getBaseContext(), "Revise la encuesta.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    
-    public void EncuestaCreada(){
-    
+
+    /**
+     * pone en blanco todo y rehace todo
+     */
+    public void ponerEnBlanco() {
+        setContentView(R.layout.encuesta);
+        fullSpinnerOptions();//Para llenar las opciones de los Spinner de +30% hasta -30%.
+        addKeyListener();//Para agregar los enter
+        addRadioGroupListener();//para los radio.
+        buttonValidar();//Para validar la encuesta y enviarla
+    }
+
+    /**
+     * Pregunta si va a registrar una encuesta del mismo cliente.
+     */
+    public void EncuestaCreada() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Desea registrar otra encuestas del mismo cliente?")
+                .setTitle("Encuesta Registrada")
+                .setCancelable(false)
+                .setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        canasta = false;
+                        Toast.makeText(getBaseContext(), "NO", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setPositiveButton("SI",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        canasta = true;
+                        Toast.makeText(getBaseContext(), "Continuar", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
