@@ -1185,7 +1185,8 @@ public class MyAndroid extends Activity {
                             cols += ",Medicamento_No_Encontro";
                             vals += ", '" + beanEncuesta.getMedicamento_No_Encontro() + "'";
                         }
-                        myDbHelper.insertar("tabla_opinion", cols, vals);                        
+                        myDbHelper.insertar("tabla_opinion", cols, vals);  
+                        EncuestaCreada();
                     }
                     Toast.makeText(getBaseContext(), "Encuesta registrada exitosamente.", Toast.LENGTH_SHORT).show();                    
                 } else {
@@ -1193,5 +1194,9 @@ public class MyAndroid extends Activity {
                 }
             }
         });
+    }
+    
+    public void EncuestaCreada(){
+    
     }
 }
